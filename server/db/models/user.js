@@ -44,7 +44,7 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  whishList: {
+  wishList: {
     type: Sequelize.ARRAY(Sequelize.INTEGER)
   }
 })
@@ -59,7 +59,7 @@ User.prototype.correctPassword = function(candidatePwd) {
 }
 
 User.prototype.getWishList = function() {
-  return this.whishList
+  return this.wishList
 }
 
 /**
