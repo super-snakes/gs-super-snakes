@@ -6,16 +6,6 @@ const Order = db.define('order', {
     type: Sequelize.INTEGER,
     allowNull: true
   },
-  items: {
-    type: Sequelize.ARRAY(Sequelize.ARRAY),
-    validate: {
-      checkLength(value) {
-        if (value.length !== 2) {
-          throw new Error('Must provide a product id and current price')
-        }
-      }
-    }
-  },
   status: {
     type: Sequelize.STRING,
     defaultValue: 'pending',

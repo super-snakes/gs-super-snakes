@@ -38,7 +38,7 @@ const Product = db.define('product', {
   },
   //for later, when allowing addition to cart, check quantity value (must be at least 1)
   quantity: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     defaultValue: 0,
     validate: {
       min: 0

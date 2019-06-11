@@ -35,7 +35,7 @@ const User = db.define('user', {
     }
   },
   paymentInformation: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     validate: {
       isCreditCard: true
     }
