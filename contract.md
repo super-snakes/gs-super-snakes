@@ -26,15 +26,13 @@
 
 * Each team member has the right to deny a task in the interest of their physical or mental health.
 
-* Each merge request requires two reviews/approvals.
+- Take note of the team's blockers so that can be monitored and overcome.
 
-* Take note of the team's blockers so that can be monitored and overcome.
+- If you are assigned a code review you must review it no later than the following morning.
 
-* If you are assigned a code review you must review it no later than the following morning.
+- Slack team members before interrupting them.
 
-* Slack team members before interrupting them.
-
-* Over communicate (in the slack channel) about your task, progress, and blockers.
+- Over communicate (in the slack channel) about your task, progress, and blockers.
 
 ## Conflict
 
