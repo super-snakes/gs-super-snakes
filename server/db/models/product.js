@@ -71,10 +71,7 @@ Product.prototype.setSaleStatus = function(sale) {
     if (sale > 1 || sale < 0) {
       return 'invalid'
     } else {
-      console.log('in else clause')
-      console.log(this.salePercentageOff)
       this.salePercentageOff = sale
-      console.log(this.salePercentageOff)
       return this.salePercentageOff
     }
   } catch (err) {
