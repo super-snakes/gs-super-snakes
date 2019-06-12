@@ -25,7 +25,9 @@ const StyledBadge = withStyles(theme => ({
 const Navbar = (props, {handleClick, isLoggedIn}) => {
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <Link to="/">
+        <h1>Super Snakes</h1>
+      </Link>
       <nav>
         {isLoggedIn ? (
           <div>
@@ -43,11 +45,13 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
             <Link to="/cart">Cart</Link>
           </div>
         )}
-        <IconButton aria-label="Cart">
-          <StyledBadge badgeContent={props.cart.length} color="primary">
-            <ShoppingCartIcon />
-          </StyledBadge>
-        </IconButton>
+        <Link to="/cart">
+          <IconButton aria-label="Cart">
+            <StyledBadge badgeContent={props.cart.length} color="primary">
+              <ShoppingCartIcon />
+            </StyledBadge>
+          </IconButton>
+        </Link>
       </nav>
       <hr />
     </div>
