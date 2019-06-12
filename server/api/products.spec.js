@@ -27,8 +27,8 @@ describe('User routes', () => {
       expect(res.body).to.be.an('array')
       expect(res.body[0].title).to.be.equal('HP and the Stone')
     })
-  }) // end describe('/api/users')
-  describe('/api/products/:id', () => {
+  })
+  describe('/api/products/book/:id', () => {
     beforeEach(() => {
       return Product.bulkCreate([
         {title: 'HP and the Stone', author: 'JK'},
@@ -44,25 +44,23 @@ describe('User routes', () => {
     })
   })
 
-  //Below, test for get request serving 'fuzzy matches' with something searched for.
+  describe('/api/products/title/:name', () => {
+    beforeEach(() => {
+      return Product.bulkCreate([
+        {title: 'HP and the Stone', author: 'JK'},
+        {title: 'HP and the Loner', author: 'JK'},
+        {title: 'Scary Coding Disasters', author: 'Console Log'}
+      ])
+    })
 
-  //   describe('/api/products/title/:name', () => {
-  //     beforeEach(() => {
-  //       return Product.bulkCreate([
-  //         {title: 'HP and the Stone', author: 'JK'},
-  //         {title: 'HP and the Loner', author: 'JK'},
-  //         {title: 'Scary Coding Disasters', author: 'Console Log'}
-  //       ])
-  //     })
-
-  //     it('GET/api/products/title/HP', async () => {
-  //       const res = await request(app)
-  //         .get('/api/products/title/HP')
-  //         .expect(200)
-  //       console.log(res.body)
-  //       expect(res.body).to.be.an('array')
-  //       expect(res.body[0].title).to.be.equal('HP and the Stone')
-  //       expect(res.body.length).to.be.equal(2)
-  //     })
-  //   })
+    it('GET/api/products/title/HP', async () => {
+      const res = await request(app)
+        .get('/api/products/title/HP')
+        .expect(200)
+      console.log(res.body)
+      expect(res.body).to.be.an('array')
+      expect(res.body[0].title).to.be.equal('HP and the Stone')
+      expect(res.body.length).to.be.equal(2)
+    })
+  })
 }) // end describe('User routes')
