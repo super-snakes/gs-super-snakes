@@ -13,13 +13,18 @@ const defaultCart = {}
 /**
  * ACTION CREATORS
  */
-const addToCart = item => {
+const addToCartAction = item => {
   return {type: ADD_TO_CART, item}
 }
 /**
  * THUNK CREATORS
  */
-
+export const addtoCart = itemId => {
+  return async dispath => {
+    const {data} = axios.get(`/api/prodcts/${itemId}`)
+    dispath(addToCartAction(data))
+  }
+}
 /**
  * REDUCER
  */

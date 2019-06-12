@@ -2,14 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const CartView = props => {
-  console.log('>>> ', props)
-  return <h1>TEST</h1>
+  return <div />
 }
 
-const mapStateToProps = state => {
+const mapState = state => {
   return {
     cart: state.cart
   }
 }
 
-export default connect(mapStateToProps)(CartView)
+export default connect(mapState)(CartView)
