@@ -25,17 +25,17 @@ const getCartAction = items => {
  * THUNK CREATORS
  */
 export const getCart = userId => {
-  return async dispath => {
+  return async dispatch => {
     const {data} = await axios.get(`/api/orders/cart/${userId}`)
-    dispath(getCartAction(data))
+    dispatch(getCartAction(data))
   }
 }
 
 export const addtoCart = itemId => {
-  return async dispath => {
-    const {data} = await axios.get(`/api/prodcts/${itemId}`)
+  return async dispatch => {
+    const {data} = await axios.get(`/api/products/${itemId}`)
 
-    dispath(addToCartAction(data))
+    dispatch(addToCartAction(data))
   }
 }
 /**
@@ -46,7 +46,7 @@ export default function(state = defaultCart, action) {
     case GET_CART:
       return [...action.items]
     case ADD_TO_CART:
-      return [...state, item]
+      return [...state, action.item]
     default:
       return state
   }
