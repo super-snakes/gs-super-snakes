@@ -1,7 +1,14 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 const CartView = props => {
   return <h1>Hello world</h1>
 }
 
-export default CartView
+const mapStateToProps = state => {
+  return {
+    cart: state.cart
+  }
+}
+
+export default connect(mapStateToProps)(CartView)
