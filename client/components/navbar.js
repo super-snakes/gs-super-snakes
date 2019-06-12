@@ -22,8 +22,7 @@ const StyledBadge = withStyles(theme => ({
   }
 }))(Badge)
 
-const Navbar = ({handleClick, isLoggedIn}) => {
-  console.log('>>> ', props)
+const Navbar = (props, {handleClick, isLoggedIn}) => {
   return (
     <div>
       <h1>BOILERMAKER</h1>
