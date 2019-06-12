@@ -1,8 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {addToCart, getCart} from '../store/cart'
 
 const CartView = props => {
-  return <div />
+  return (
+    <div>
+      {props.cart.map(item => {
+        return <div>{item.name}</div>
+      })}
+    </div>
+  )
 }
 
 const mapState = state => {
@@ -11,4 +18,11 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(CartView)
+const mapDispatch = dispatch => {
+  return {
+    getCart: userId => dispatch(getCart(userId)),
+    addToCart: itemId => dispatch(addToCart(itemId))
+  }
+}
+
+export default connect(mapState, mapDispatch)(CartView)
