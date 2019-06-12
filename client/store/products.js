@@ -2,14 +2,14 @@ import axios from 'axios'
 
 const GOT_PRODUCTS = 'GOT_PRODUCTS'
 
-const defaultProducts = {products: []}
+const defaultProducts = []
 
 const gotProducts = products => ({type: GOT_PRODUCTS, products})
 
 export const getProducts = () => {
   return async dispatch => {
     try {
-      const res = await axios('/api/products')
+      const res = await axios.get('/api/products')
       dispatch(gotProducts(res.data))
     } catch (error) {
       console.log(error)
