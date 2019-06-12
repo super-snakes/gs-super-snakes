@@ -9,7 +9,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 /**
  * INITIAL STATE
  */
-const defaultCart = [{name: 'cheese'}, {name: 'ham'}]
+const defaultCart = []
 
 /**
  * ACTION CREATORS
