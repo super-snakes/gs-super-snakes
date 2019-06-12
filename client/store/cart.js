@@ -26,14 +26,15 @@ const getCartAction = items => {
  */
 export const getCart = userId => {
   return async dispath => {
-    const {data} = axios.get(`/api/orders/cart/${userId}`)
+    const {data} = await axios.get(`/api/orders/cart/${userId}`)
     dispath(getCartAction(data))
   }
 }
 
 export const addtoCart = itemId => {
   return async dispath => {
-    const {data} = axios.get(`/api/prodcts/${itemId}`)
+    const {data} = await axios.get(`/api/prodcts/${itemId}`)
+
     dispath(addToCartAction(data))
   }
 }
