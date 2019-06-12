@@ -7,16 +7,10 @@ import {addtoCart} from '../store/cart'
 // Handle the add to cart --> redux thing
 
 const ProductCard = props => {
-  const {
-    id,
-    title,
-    author,
-    rating,
-    price,
-    imageUrl,
-    salePercentageOff
-  } = props.book
+  const {id, title, author, rating, imageUrl} = props.book
 
+  const price = (props.book.price / 100).toFixed(2)
+  const salePercentageOff = props.book.salePercentageOff / 100
   return (
     <div className="productCard">
       <Link to={`/product/${id}`}>
@@ -25,17 +19,17 @@ const ProductCard = props => {
         <img src={imageUrl} />
         <p className="rating">{rating}</p>
         {salePercentageOff > 0 ? (
-          <p>
-            <p style={{textDecorationLine: 'line-through'}}>
-              ${price.toFixed(2)}{' '}
-            </p>
+          <div className="salePrice">
+            <p style={{textDecorationLine: 'line-through'}}>${price} </p>
             ${(price - price * salePercentageOff).toFixed(2)}
-          </p>
+          </div>
         ) : (
-          <p>${price.toFixed(2)}</p>
+          <div className="price">${price}</div>
         )}
       </Link>
-      <button onClick={() => props.addToCart(id)}>Add to Cart</button>
+      <button type="button" onClick={() => props.addToCart(id)}>
+        Add to Cart
+      </button>
     </div>
   )
 }
