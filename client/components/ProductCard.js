@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {addtoCart} from '../store/cart'
 
 // TO DO
 // Handle the add to cart --> redux thing
@@ -14,7 +16,7 @@ const ProductCard = props => {
     imageUrl,
     salePercentageOff
   } = props.book
-  console.log(price)
+
   return (
     <div className="productCard">
       <Link to={`/product/${id}`}>
@@ -33,9 +35,15 @@ const ProductCard = props => {
           <p>${price.toFixed(2)}</p>
         )}
       </Link>
-      <button>Add to Cart</button>
+      <button onClick={() => props.addToCart(id)}>Add to Cart</button>
     </div>
   )
 }
 
-export default ProductCard
+const mapDispatch = dispatch => {
+  return {
+    addToCart: itemId => dispatch(addtoCart(itemId))
+  }
+}
+
+export default connect(null, mapDispatch)(ProductCard)
