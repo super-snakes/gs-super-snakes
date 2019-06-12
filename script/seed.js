@@ -18,7 +18,7 @@ const library = [
     tags: 'fy',
     quantity: 100000000,
     genre: 'fantasy',
-    price: 3
+    price: 300
   },
   {
     title: 'Of Human Bondage',
@@ -29,8 +29,8 @@ const library = [
       'Of Human Bondage is a 1915 novel by W. Somerset Maugham. It is generally agreed to be his masterpiece and to be strongly autobiographical in nature, although Maugham stated, "This is a novel, not an autobiography, though much in it is autobiographical, more is pure invention."',
     tags: 'f',
     genre: 'coming of age',
-    price: 4,
-    salePercentageOff: 0.2
+    price: 400,
+    salePercentageOff: 20
   },
   {
     title: 'Cloud Atlas',
@@ -41,7 +41,7 @@ const library = [
       "Cloud Atlas is the third novel by British author David Mitchell. Published in 2004, the fantastical speculative fiction book consists of six interconnected nested stories that take the reader from the remote South Pacific in the nineteenth century to the island of Hawai'i in a distant post-apocalyptic future.",
     tags: 'f',
     genre: 'fantasy',
-    price: 6
+    price: 600
   }
 ]
 

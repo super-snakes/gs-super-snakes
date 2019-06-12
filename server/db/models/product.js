@@ -58,10 +58,10 @@ const Product = db.define('product', {
   },
   salePercentageOff: {
     defaultValue: 0,
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     validate: {
-      min: 0.0,
-      max: 1.0
+      min: 0,
+      max: 100
     }
   },
   price: {
