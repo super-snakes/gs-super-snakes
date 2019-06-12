@@ -2,7 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const CartView = props => {
-  return <h1>Hello world</h1>
+  console.log('>>> ', props)
+  return <h1>TEST</h1>
 }
 
 const mapStateToProps = state => {
