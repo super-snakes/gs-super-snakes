@@ -10,7 +10,6 @@ export const getProducts = () => {
   return async dispatch => {
     try {
       const res = await axios.get('/api/products')
-      console.log('here', res)
       dispatch(gotProducts(res.data))
     } catch (error) {
       console.log(error)

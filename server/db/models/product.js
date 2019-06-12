@@ -63,6 +63,13 @@ const Product = db.define('product', {
       min: 0.0,
       max: 1.0
     }
+  },
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0
+    }
   }
 })
 

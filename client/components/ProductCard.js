@@ -5,7 +5,16 @@ import {Link} from 'react-router-dom'
 // Handle the add to cart --> redux thing
 
 const ProductCard = props => {
-  const {id, title, author, rating, price, imageUrl} = props.book
+  const {
+    id,
+    title,
+    author,
+    rating,
+    price,
+    imageUrl,
+    salePercentageOff
+  } = props.book
+  console.log(price)
   return (
     <div className="productCard">
       <Link to={`/product/${id}`}>
@@ -13,7 +22,16 @@ const ProductCard = props => {
         <h3>{author}</h3>
         <img src={imageUrl} />
         <p className="rating">{rating}</p>
-        <p>${price}</p>
+        {salePercentageOff > 0 ? (
+          <p>
+            <p style={{textDecorationLine: 'line-through'}}>
+              ${price.toFixed(2)}{' '}
+            </p>
+            ${(price - price * salePercentageOff).toFixed(2)}
+          </p>
+        ) : (
+          <p>${price.toFixed(2)}</p>
+        )}
       </Link>
       <button>Add to Cart</button>
     </div>
