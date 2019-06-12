@@ -14,7 +14,8 @@ describe('Product model', () => {
       beforeEach(async () => {
         harryPotter = await Product.create({
           title: 'Chamber of Secrets',
-          author: 'JK Rowling'
+          author: 'JK Rowling',
+          price: 1
         })
       })
 

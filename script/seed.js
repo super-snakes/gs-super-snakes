@@ -17,7 +17,8 @@ const library = [
       'Harry Potter and the Chamber of Secrets is a fantasy novel written by British author J. K. Rowling and the second novel in the Harry Potter series. The plot follows Harry\'s second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school\'s corridors warn that the "Chamber of Secrets" has been opened and that the "heir of Slytherin" would kill all pupils who do not come from all-magical families.',
     tags: 'fy',
     quantity: 100000000,
-    genre: 'fantasy'
+    genre: 'fantasy',
+    price: 3
   },
   {
     title: 'Of Human Bondage',
@@ -27,7 +28,9 @@ const library = [
     description:
       'Of Human Bondage is a 1915 novel by W. Somerset Maugham. It is generally agreed to be his masterpiece and to be strongly autobiographical in nature, although Maugham stated, "This is a novel, not an autobiography, though much in it is autobiographical, more is pure invention."',
     tags: 'f',
-    genre: 'coming of age'
+    genre: 'coming of age',
+    price: 4,
+    salePercentageOff: 0.2
   },
   {
     title: 'Cloud Atlas',
@@ -37,7 +40,8 @@ const library = [
     description:
       "Cloud Atlas is the third novel by British author David Mitchell. Published in 2004, the fantastical speculative fiction book consists of six interconnected nested stories that take the reader from the remote South Pacific in the nineteenth century to the island of Hawai'i in a distant post-apocalyptic future.",
     tags: 'f',
-    genre: 'fantasy'
+    genre: 'fantasy',
+    price: 6
   }
 ]
 
