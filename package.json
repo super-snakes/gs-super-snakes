@@ -43,6 +43,8 @@
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.1.0",
+    "@material-ui/icons": "^4.1.0",
     "axios": "^0.18.0",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.0.0",
