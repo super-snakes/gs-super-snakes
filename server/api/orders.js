@@ -6,7 +6,7 @@ module.exports = router
 
 //retrieve cart (pending order)
 
-router.get('/orders/cart/:id', async (req, res, next) => {
+router.get('/cart/:id', async (req, res, next) => {
   try {
     const openOrder = await Order.findAll({
       where: {
@@ -20,7 +20,7 @@ router.get('/orders/cart/:id', async (req, res, next) => {
   }
 })
 
-router.post('/orders/cart', async (req, res, next) => {
+router.post('/cart', async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body)
     res.status(201).json(newOrder)
@@ -29,14 +29,14 @@ router.post('/orders/cart', async (req, res, next) => {
   }
 })
 
-router.put('orders/cart/:id', async (req, res, next) => {
+router.put('/cart/:id', async (req, res, next) => {
   try {
-    await Order.update(req.body, {
+    let order = await Order.update(req.body, {
       where: {
         id: req.params.id
       }
     })
-    res.sendStatus(200)
+    res.status(200).json(order)
   } catch (err) {
     next(err)
   }
