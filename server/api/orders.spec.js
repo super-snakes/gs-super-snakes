@@ -40,15 +40,13 @@ describe('Order routes', () => {
       expect(res.body.status).to.be.equal('pending')
     })
 
-    xit('PUT /cart/:id', async () => {
+    it('PUT /cart/:id', async () => {
       const res = await request(app)
-        .put('/api/orders/cart/3', {status: 'shipped'})
+        .put('/api/orders/cart/3')
+        .send({status: 'shipped'})
         .expect(200)
 
-      // I dont know how to send over the req.body
-
       const updatedOrder = await Order.findByPk(3)
-      console.log(updatedOrder)
       expect(updatedOrder.status).to.be.equal('shipped')
     })
 
