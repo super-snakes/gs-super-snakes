@@ -8,9 +8,7 @@ const gotSingleBook = book => ({
 })
 
 export const getSingleBookThunk = id => async dispatch => {
-  console.log('------>', id)
   const {data} = await axios.get(`/api/products/${id}`)
-  console.log('------>DATA', data)
   dispatch(gotSingleBook(data))
 }
 
