@@ -7,7 +7,7 @@ import {addToCart, getCart} from '../store/cart'
 const CartView = props => {
   return (
     <div>
-      <Link to={{pathname: '/checkout'}}>
+      <Link to="/cart/checkout">
         <h4>To Checkout</h4>
       </Link>
       <div>

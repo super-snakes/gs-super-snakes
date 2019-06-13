@@ -48,6 +48,13 @@ export const removeFromCart = itemIndex => {
     dispatch(removeFromCartAction(itemIndex))
   }
 }
+
+export const submitCart = (cart, status, userId) => {
+  return async dispatch => {
+    const {data} = await axios.post('/api/orders/cart', {cart, status, userId})
+    dispatch(getCartAction([]))
+  }
+}
 /**
  * REDUCER
  */
