@@ -25,7 +25,6 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/add', async (req, res, next) => {
-  console.log('here')
   try {
     const name = req.body.name
     const email = req.body.email
