@@ -20,17 +20,14 @@ const ProductCard = props => {
       <p className="rating">{rating}</p>
       {salePercentageOff > 0 ? (
         <p>
-          <p style={{textDecorationLine: 'line-through'}}>
-            ${price.toFixed(2)}{' '}
-          </p>
+          <p style={{textDecorationLine: 'line-through'}}>${price} </p>
           ${(price - price * salePercentageOff).toFixed(2)}
         </p>
       ) : (
-        <p>${price.toFixed(2)}</p>
+        <p>${price}</p>
       )}
 
       <button>Add to Cart</button>
-
     </div>
   )
 }
