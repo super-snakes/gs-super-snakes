@@ -18,7 +18,7 @@ export const UserHome = props => {
     <div className="h100 w100 flex column align-items-center justify-center">
       <div className="flex">
         <img src={user.imageUrl} className="rounded mr1" />
-        <h1>Welcome back {user.email}!</h1>
+        <h1>Welcome {user.email}!</h1>
       </div>
       <div>
         <button className="btn bg-red white p1 rounded" onClick={handleClick}>
