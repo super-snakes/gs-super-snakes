@@ -2,8 +2,9 @@ import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {removeFromCart} from '../store/cart'
+import {modifyCart} from '../store/cart'
 import {connect} from 'react-redux'
+import {Add, Remove} from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,14 +17,18 @@ const CartItem = props => {
   const {id, title, imageUrl, author, price} = props.product
 
   return (
-    <div key={props.keyValue}>
+    <div>
       <Paper className={classes.root}>
         <h4>{title}</h4>
         <h5>{author}</h5>
         <p>${price}</p>
-        <p>Quantity: {props.quantity}</p>
+        <p>
+          Quantity: <Remove onClick={() => props.modifyCart(id, -1)} />
+          {props.quantity}
+          <Add onClick={() => props.modifyCart(id, 1)} />
+        </p>
         <img src={imageUrl} />
-        <DeleteIcon onClick={() => props.removeFromCart(id, props.quantity)} />
+        <DeleteIcon onClick={() => props.modifyCart(id, -props.quantity)} />
       </Paper>
     </div>
   )
@@ -31,8 +36,8 @@ const CartItem = props => {
 
 const mapDispatch = dispatch => {
   return {
-    removeFromCart: (productId, amountToDelete) =>
-      dispatch(removeFromCart(productId, amountToDelete))
+    modifyCart: (productId, amountToDelete) =>
+      dispatch(modifyCart(productId, amountToDelete))
   }
 }
 

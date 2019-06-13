@@ -6,7 +6,7 @@ import history from '../history'
  */
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+const MODIFY_QUANITY = 'MODIFY_QUANITY'
 /**
  * INITIAL STATE
  */
@@ -23,8 +23,8 @@ const getCartAction = items => {
   return {type: GET_CART, items}
 }
 
-const removeFromCartAction = (id, amountToDelete) => {
-  return {type: REMOVE_FROM_CART, id, amountToDelete}
+const modifyCartAction = (id, changeAmount) => {
+  return {type: MODIFY_QUANITY, id, changeAmount}
 }
 /**
  * THUNK CREATORS
@@ -43,9 +43,9 @@ export const getCart = userId => {
   }
 }
 
-export const removeFromCart = (id, amountToDelete) => {
+export const modifyCart = (id, changeAmount) => {
   return dispatch => {
-    dispatch(removeFromCartAction(id, amountToDelete))
+    dispatch(modifyCartAction(id, changeAmount))
   }
 }
 
@@ -79,22 +79,11 @@ export default function(state = defaultCart, action) {
       }
       return newState
     }
-
-    // if (action.quantity) {
-    //   let newState = [...state]
-
-    //   for (let i = 0; i < action.quantity; i++) {
-    //     newState.push(action.item)
-    //   }
-    //   return newState
-    // } else {
-    //   return [...state, action.item]
-    // }
-    case REMOVE_FROM_CART: {
+    case MODIFY_QUANITY: {
       let newState = {...state}
       const id = action.id
       if (newState[id].quantity > 1) {
-        newState[id].quantity = newState[id].quantity - action.amountToDelete
+        newState[id].quantity = newState[id].quantity + action.changeAmount
         if (newState[id].quantity < 1) {
           delete newState[id]
         }
