@@ -10,7 +10,6 @@ class Products extends React.Component {
   }
 
   render() {
-    console.log(this)
     const books = this.props.products
     return (
       <div id="allProductsWrapper">

@@ -15,8 +15,8 @@ const defaultCart = []
 /**
  * ACTION CREATORS
  */
-const addToCartAction = item => {
-  return {type: ADD_TO_CART, item}
+const addToCartAction = (item, quantity) => {
+  return {type: ADD_TO_CART, item, quantity}
 }
 
 const getCartAction = items => {
@@ -29,17 +29,17 @@ const removeFromCartAction = itemIndex => {
 /**
  * THUNK CREATORS
  */
+export const addToCart = (itemId, quantity) => {
+  return async dispatch => {
+    const {data} = await axios.get(`/api/products/${itemId}`)
+    dispatch(addToCartAction(data, quantity))
+  }
+}
+
 export const getCart = userId => {
   return async dispatch => {
     const {data} = await axios.get(`/api/orders/cart/${userId}`)
     dispatch(getCartAction(data))
-  }
-}
-
-export const addtoCart = itemId => {
-  return async dispatch => {
-    const {data} = await axios.get(`/api/products/${itemId}`)
-    dispatch(addToCartAction(data))
   }
 }
 
@@ -56,7 +56,15 @@ export default function(state = defaultCart, action) {
     case GET_CART:
       return [...action.items]
     case ADD_TO_CART:
-      return [...state, action.item]
+      if (action.quantity) {
+        let newState = [...state]
+        for (let i = 0; i < action.quantity; i++) {
+          newState.push(action.item)
+        }
+        return newState
+      } else {
+        return [...state, action.item]
+      }
     case REMOVE_FROM_CART:
       const removedItemArray = [
         ...state.slice(0, action.itemIndex),
