@@ -6,21 +6,21 @@ module.exports = router
 
 //retrieve cart (pending order)
 
-router.get('/orders/cart/:id', async (req, res, next) => {
+router.get('/cart/:id', async (req, res, next) => {
   try {
     const openOrder = await Order.findAll({
       where: {
-        id: req.params.id,
+        id: +req.params.id,
         status: 'pending'
       }
     })
-    res.json(openOrder)
+    res.json(openOrder[0])
   } catch (err) {
     next(err)
   }
 })
 
-router.post('/orders/cart', async (req, res, next) => {
+router.post('/cart', async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body)
     res.status(201).json(newOrder)
@@ -29,11 +29,12 @@ router.post('/orders/cart', async (req, res, next) => {
   }
 })
 
-router.put('orders/cart/:id', async (req, res, next) => {
+router.put('/cart/:id', async (req, res, next) => {
   try {
+    console.log('here', req.body)
     await Order.update(req.body, {
       where: {
-        id: req.params.id
+        id: +req.params.id
       }
     })
     res.sendStatus(200)

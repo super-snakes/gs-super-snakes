@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ProductCard from './ProductCard'
 import {getProducts} from '../store/products'
+import {Link, Switch, Route} from 'react-router-dom'
 
 class Products extends React.Component {
   componentDidMount() {

@@ -38,7 +38,7 @@ const Product = db.define('product', {
   },
   //for later, when allowing addition to cart, check quantity value (must be at least 1)
   quantity: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     defaultValue: 0,
     validate: {
       min: 0
@@ -58,10 +58,17 @@ const Product = db.define('product', {
   },
   salePercentageOff: {
     defaultValue: 0,
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     validate: {
-      min: 0.0,
-      max: 1.0
+      min: 0,
+      max: 100
+    }
+  },
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0
     }
   }
 })
@@ -71,10 +78,7 @@ Product.prototype.setSaleStatus = function(sale) {
     if (sale > 1 || sale < 0) {
       return 'invalid'
     } else {
-      console.log('in else clause')
-      console.log(this.salePercentageOff)
       this.salePercentageOff = sale
-      console.log(this.salePercentageOff)
       return this.salePercentageOff
     }
   } catch (err) {

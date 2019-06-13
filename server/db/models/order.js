@@ -6,7 +6,6 @@ const Order = db.define('order', {
     type: Sequelize.INTEGER,
     allowNull: true
   },
-
   status: {
     type: Sequelize.STRING,
     defaultValue: 'pending',
