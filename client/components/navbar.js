@@ -25,7 +25,7 @@ const StyledBadge = withStyles(theme => ({
 const Navbar = (props, {handleClick, isLoggedIn}) => {
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <h1>SUPER SNAKE</h1>
       <nav>
         {isLoggedIn ? (
           <div>
