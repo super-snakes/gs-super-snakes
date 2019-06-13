@@ -49,9 +49,15 @@ export const removeFromCart = (id, amountToDelete) => {
   }
 }
 
-export const submitCart = (cart, status, userId) => {
+export const submitCart = (cart, status, email, address, userId) => {
   return async dispatch => {
-    const {data} = await axios.post('/api/orders/cart', {cart, status, userId})
+    const {data} = await axios.post('/api/orders/cart', {
+      cart,
+      status,
+      email,
+      address,
+      userId
+    })
     dispatch(getCartAction({}))
   }
 }
