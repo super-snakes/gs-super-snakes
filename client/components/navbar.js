@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Badge from '@material-ui/core/Badge'
 import {withStyles} from '@material-ui/core/styles'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import OauthLoginForm from './oauth-login-form'
 // import {stat} from 'fs'
 
 const StyledBadge = withStyles(theme => ({
@@ -25,7 +26,6 @@ const StyledBadge = withStyles(theme => ({
 const Navbar = (props, {handleClick, isLoggedIn}) => {
   return (
     <div>
-
       <Link to="/">
         <h1>Super Snakes</h1>
       </Link>
@@ -53,6 +53,7 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
             </StyledBadge>
           </IconButton>
         </Link>
+        <OauthLoginForm />
       </nav>
       <hr />
     </div>

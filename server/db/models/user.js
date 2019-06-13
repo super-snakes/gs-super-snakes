@@ -17,10 +17,10 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
-    // get() {
-    //   return () => this.getDataValue('password')
-    // }
+    // allowNull: false,
+    get() {
+      return () => this.getDataValue('password')
+    }
   },
   address: {
     type: Sequelize.STRING
@@ -77,9 +77,6 @@ User.encryptPassword = function(plainText, salt) {
     .digest('hex')
 }
 
-/**
- * hooks
- */
 const setSaltAndPassword = user => {
   if (user.changed('password')) {
     user.salt = User.generateSalt()
@@ -87,8 +84,8 @@ const setSaltAndPassword = user => {
   }
 }
 
-User.beforeCreate(setSaltAndPassword)
-User.beforeUpdate(setSaltAndPassword)
-User.beforeBulkCreate(users => {
-  users.forEach(setSaltAndPassword)
-})
+// User.beforeCreate(setSaltAndPassword)
+// User.beforeUpdate(setSaltAndPassword)
+// User.beforeBulkCreate(users => {
+//   users.forEach(setSaltAndPassword)
+// })
