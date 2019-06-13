@@ -9,25 +9,27 @@ import {addtoCart} from '../store/cart'
 const ProductCard = props => {
   const {id, title, author, rating, imageUrl} = props.book
 
-  const price = (props.book.price / 100).toFixed(2)
+  const price = props.book.price / 100
   const salePercentageOff = props.book.salePercentageOff / 100
   return (
     <div className="productCard">
-      <Link to={`/products/${id}`}> To single product</Link>
-      <h2>{title}</h2>
-      <h3>{author}</h3>
-      <img src={imageUrl} />
-      <p className="rating">{rating}</p>
-      {salePercentageOff > 0 ? (
-        <p>
-          <p style={{textDecorationLine: 'line-through'}}>${price} </p>
-          ${(price - price * salePercentageOff).toFixed(2)}
-        </p>
-      ) : (
-        <p>${price}</p>
-      )}
-
-      <button>Add to Cart</button>
+      <Link to={`/product/${id}`}>
+        <h2>{title}</h2>
+        <h3>{author}</h3>
+        <img src={imageUrl} />
+        <p className="rating">{rating}</p>
+        {salePercentageOff > 0 ? (
+          <div className="salePrice">
+            <p style={{textDecorationLine: 'line-through'}}>${price} </p>
+            ${(price - price * salePercentageOff).toFixed(2)}
+          </div>
+        ) : (
+          <div className="price">${price}</div>
+        )}
+      </Link>
+      <button type="button" onClick={() => props.addToCart(id)}>
+        Add to my Cart
+      </button>
     </div>
   )
 }
