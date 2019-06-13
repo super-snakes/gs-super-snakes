@@ -27,7 +27,7 @@ const ProductCard = props => {
           <div className="price">${price}</div>
         )}
       </Link>
-      <button type="button" onClick={() => props.addToCart(id)}>
+      <button type="button" onClick={() => props.addToCart(id, 1)}>
         Add to my Cart
       </button>
     </div>
@@ -36,7 +36,7 @@ const ProductCard = props => {
 
 const mapDispatch = dispatch => {
   return {
-    addToCart: itemId => dispatch(addToCart(itemId))
+    addToCart: (itemId, quantity) => dispatch(addToCart(itemId, quantity))
   }
 }
 
