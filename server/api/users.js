@@ -6,11 +6,12 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll()
-    res.json(users)
+    res.status(200).json(users)
   } catch (err) {
     next(err)
   }
 })
+
 router.get('/:id', async (req, res, next) => {
   const id = +req.params.id
   try {
@@ -24,7 +25,6 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/add', async (req, res, next) => {
-  console.log(req.body)
   try {
     const name = req.body.name
     const email = req.body.email
