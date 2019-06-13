@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {addtoCart} from '../store/cart'
+import {addToCart} from '../store/cart'
 
 // TO DO
 // Handle the add to cart --> redux thing
@@ -36,7 +36,7 @@ const ProductCard = props => {
 
 const mapDispatch = dispatch => {
   return {
-    addToCart: itemId => dispatch(addtoCart(itemId))
+    addToCart: itemId => dispatch(addToCart(itemId))
   }
 }
 
