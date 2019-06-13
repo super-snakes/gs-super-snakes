@@ -71,7 +71,6 @@ router.get('/author/:writer', async (req, res, next) => {
 
 router.get('/title/:name', async (req, res, next) => {
   try {
-    console.log('here', req.params.name)
     const products = await Product.findAll({
       where: {
         title: {
