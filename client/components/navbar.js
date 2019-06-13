@@ -25,6 +25,7 @@ const StyledBadge = withStyles(theme => ({
 const Navbar = (props, {handleClick, isLoggedIn}) => {
   return (
     <div>
+
       <Link to="/">
         <h1>Super Snakes</h1>
       </Link>

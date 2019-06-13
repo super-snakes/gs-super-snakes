@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, CartView} from './components'
 import {me} from './store'
 import Products from './components/Products'
-
+import SingleProduct from './components/singleproduct'
 /**
  * COMPONENT
  */
@@ -21,7 +21,10 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={Products} />
+        <Route exact path="/products" component={Products} />
         <Route exact path="/cart" component={CartView} />
+        <Route path="/products/:id(\d+)" component={SingleProduct} />
+
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
 
@@ -45,7 +48,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !state.user.id
   }
 }
 

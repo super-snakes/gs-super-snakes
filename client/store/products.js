@@ -20,6 +20,7 @@ export const getProducts = () => {
 export default function(state = defaultProducts, action) {
   switch (action.type) {
     case GOT_PRODUCTS: {
+      console.log('products', action)
       return action.products
     }
     default: {
