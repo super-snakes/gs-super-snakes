@@ -13,7 +13,7 @@ const ProductCard = props => {
   const salePercentageOff = props.book.salePercentageOff / 100
   return (
     <div className="productCard">
-      <Link to={`/product/${id}`}>
+      <Link to={`/products/${id}`}>
         <h2>{title}</h2>
         <h3>{author}</h3>
         <img src={imageUrl} />

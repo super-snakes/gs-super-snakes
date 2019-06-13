@@ -20,7 +20,7 @@ const CartItem = props => {
       <Paper className={classes.root}>
         <h4>{title}</h4>
         <h5>{author}</h5>
-        <p>{price}</p>
+        <p>${price}</p>
         <img src={imageUrl} />
         <DeleteIcon onClick={() => props.removeFromCart(props.keyValue)} />
       </Paper>
