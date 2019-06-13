@@ -6,6 +6,7 @@ import {Login, Signup, UserHome, CartView} from './components'
 import {me} from './store'
 import Products from './components/Products'
 import SingleProduct from './components/singleproduct'
+import Checkout from './components/Checkout'
 /**
  * COMPONENT
  */
@@ -23,6 +24,7 @@ class Routes extends Component {
         <Route exact path="/" component={Products} />
         <Route exact path="/products" component={Products} />
         <Route exact path="/cart" component={CartView} />
+        <Route exact path="/cart/checkout" component={Checkout} />
         <Route path="/products/:id(\d+)" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />

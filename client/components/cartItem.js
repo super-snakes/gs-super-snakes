@@ -21,8 +21,9 @@ const CartItem = props => {
         <h4>{title}</h4>
         <h5>{author}</h5>
         <p>${price}</p>
+        <p>Quantity: {props.quantity}</p>
         <img src={imageUrl} />
-        <DeleteIcon onClick={() => props.removeFromCart(props.keyValue)} />
+        <DeleteIcon onClick={() => props.removeFromCart(id, props.quantity)} />
       </Paper>
     </div>
   )
@@ -30,7 +31,8 @@ const CartItem = props => {
 
 const mapDispatch = dispatch => {
   return {
-    removeFromCart: productIndex => dispatch(removeFromCart(productIndex))
+    removeFromCart: (productId, amountToDelete) =>
+      dispatch(removeFromCart(productId, amountToDelete))
   }
 }
 
