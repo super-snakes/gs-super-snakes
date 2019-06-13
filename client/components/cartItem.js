@@ -21,7 +21,7 @@ const CartItem = props => {
       <Paper className={classes.root}>
         <h4>{title}</h4>
         <h5>{author}</h5>
-        <p>${price}</p>
+        <p>${(price / 100).toFixed(2)}</p>
         <p>
           Quantity: <Remove onClick={() => props.modifyCart(id, -1)} />
           {props.quantity}
