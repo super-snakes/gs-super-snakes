@@ -12,7 +12,8 @@ class CheckoutForm extends React.Component {
     this.state = {
       name: '',
       card: '',
-      address: ''
+      address: '',
+      email: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,7 +24,8 @@ class CheckoutForm extends React.Component {
     this.setState({
       name: user.name || 'Name',
       card: user.paymentInformation || 'Card number',
-      address: user.address || 'Address'
+      address: user.address || 'Address',
+      email: user.email || 'Email'
     })
   }
 
@@ -40,7 +42,13 @@ class CheckoutForm extends React.Component {
     //     items.push(el.id)
     // });
 
-    this.props.submitCart(this.props.cart, status, id)
+    this.props.submitCart(
+      this.props.cart,
+      status,
+      this.state.email,
+      this.state.address,
+      id
+    )
   }
 
   render() {
@@ -74,6 +82,15 @@ class CheckoutForm extends React.Component {
             value={this.state.address}
             required
           />
+
+          <label htmlFor="email">Email:</label>
+          <input
+            onChange={this.handleChange}
+            name="email"
+            type="text"
+            value={this.state.email}
+            required
+          />
           {/* <input onChange={this.handleChange} name="street1" type="text" />
                     <input onChange={this.handleChange} name="street2" type="text" />
                     <input onChange={this.handleChange} name="city" type="text" />
@@ -97,7 +114,8 @@ const mapToState = state => ({
 })
 
 const mapToDispatch = dispatch => ({
-  submitCart: (cart, status, id) => dispatch(submitCart(cart, status, id))
+  submitCart: (cart, status, email, address, id) =>
+    dispatch(submitCart(cart, status, email, address, id))
 })
 
 export default connect(mapToState, mapToDispatch)(CheckoutForm)

@@ -25,13 +25,17 @@ router.post('/cart', async (req, res, next) => {
     const cart = req.body.cart
     const status = req.body.status
     const userId = req.body.userId
+    const address = req.body.address
+    const email = req.body.email
     const newOrder = await Order.create({
       status,
-      userId
+      userId,
+      address,
+      email
     })
 
     for (let bookId in cart) {
-      let newThing = await OrderProducts.create({
+      await OrderProducts.create({
         orderId: newOrder.id,
         productId: cart[bookId].book.id,
         quantity: cart[bookId].quantity,
