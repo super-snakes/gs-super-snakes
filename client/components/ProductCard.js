@@ -28,7 +28,7 @@ const ProductCard = props => {
         )}
       </Link>
       <button type="button" onClick={() => props.addToCart(id)}>
-        Add to Cart
+        Add to my Cart
       </button>
     </div>
   )
