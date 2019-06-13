@@ -1,12 +1,13 @@
 import React from 'react'
+import CartItem from './cartItem'
 import {connect} from 'react-redux'
 import {addToCart, getCart} from '../store/cart'
 
 const CartView = props => {
   return (
     <div>
-      {props.cart.map(item => {
-        return <div>{item.name}</div>
+      {props.cart.map((product, ind) => {
+        return <CartItem product={product} keyValue={ind} />
       })}
     </div>
   )

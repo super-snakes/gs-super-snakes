@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 /**
  * INITIAL STATE
  */
@@ -21,6 +22,10 @@ const addToCartAction = item => {
 const getCartAction = items => {
   return {type: GET_CART, items}
 }
+
+const removeFromCartAction = itemIndex => {
+  return {type: REMOVE_FROM_CART, itemIndex}
+}
 /**
  * THUNK CREATORS
  */
@@ -34,8 +39,13 @@ export const getCart = userId => {
 export const addtoCart = itemId => {
   return async dispatch => {
     const {data} = await axios.get(`/api/products/${itemId}`)
-
     dispatch(addToCartAction(data))
+  }
+}
+
+export const removeFromCart = itemIndex => {
+  return dispatch => {
+    dispatch(removeFromCartAction(itemIndex))
   }
 }
 /**
@@ -47,6 +57,13 @@ export default function(state = defaultCart, action) {
       return [...action.items]
     case ADD_TO_CART:
       return [...state, action.item]
+    case REMOVE_FROM_CART:
+      const removedItemArray = [
+        ...state.slice(0, action.itemIndex),
+        ...state.slice(action.itemIndex + 1)
+      ]
+
+      return removedItemArray
     default:
       return state
   }

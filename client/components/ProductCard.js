@@ -9,7 +9,7 @@ import {addtoCart} from '../store/cart'
 const ProductCard = props => {
   const {id, title, author, rating, imageUrl} = props.book
 
-  const price = (props.book.price / 100).toFixed(2)
+  const price = props.book.price / 100
   const salePercentageOff = props.book.salePercentageOff / 100
   return (
     <div className="productCard">
