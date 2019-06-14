@@ -10,10 +10,11 @@ router.get('/cart/:id', async (req, res, next) => {
   try {
     const openOrder = await Order.findAll({
       where: {
-        id: +req.params.id,
+        userId: +req.params.id,
         status: 'pending'
       }
     })
+    console.log(openOrder[0])
     res.json(openOrder[0])
   } catch (err) {
     next(err)

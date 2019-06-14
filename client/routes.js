@@ -7,7 +7,8 @@ import {me} from './store'
 import Products from './components/Products'
 import SingleProduct from './components/singleproduct'
 import Checkout from './components/Checkout'
-import {submitCart} from './store/cart'
+import {submitCart, getCart} from './store/cart'
+import {get} from 'http'
 /**
  * COMPONENT
  */
@@ -63,8 +64,9 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     },
-    submitCart: (cart, status, email, address = null, id) =>
+    submitCart: (cart, status, email, address = null, id) => {
       dispatch(submitCart(cart, status, email, address, id))
+    }
   }
 }
 
