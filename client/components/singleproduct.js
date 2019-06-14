@@ -3,13 +3,14 @@ import {addToCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {getSingleBookThunk} from '../store/singleproductReducer'
 import {Link} from 'react-router-dom'
+import {modifyCart} from '../store/cart'
 
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       showAddReview: false,
-      quantity: ''
+      quantity: '0'
     }
     this.toggle_review = this.toggle_review.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -34,7 +35,7 @@ class SingleProduct extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.addToCart(this.props.book.id, +this.state.quantity)
-    this.props.history.push('/')
+    // this.props.history.push('/')
   }
 
   handleChange(e) {
@@ -43,6 +44,7 @@ class SingleProduct extends React.Component {
 
   render() {
     let obj = this.props.book
+    console.log(obj.price / 100)
     return (
       <div>
         <img src={this.props.book.imageUrl} height={200} />
@@ -52,7 +54,7 @@ class SingleProduct extends React.Component {
         <button>Add to wish list</button>
         <div>
           <form onSubmit={this.handleSubmit}>
-            <h3>Quantity: {obj.quantity}</h3>
+            {/* <h3>Quantity: {this.state.quantity}</h3> */}
 
             <input
               type="number"
@@ -66,12 +68,17 @@ class SingleProduct extends React.Component {
           </form>
           {obj.salePercentageOff > 0 ? (
             <h3>
-              SALE Discount: {obj.salePercentageOff * 100}% Price: ${obj.price -
-                obj.salePercentageOff}{' '}
+              SALE Discount: {parseInt(obj.salePercentageOff)}% Price w/out
+              discount: ${obj.price / 100}
+              Price: ${parseInt(this.state.quantity) *
+                (obj.price / 100 -
+                  parseInt(obj.price / 100) * (obj.salePercentageOff / 100))}
             </h3>
           ) : (
             <h3>
-              Price:{obj.price}*{obj.quantity}
+              Price: ${parseInt(obj.price) /
+                100 *
+                parseInt(this.state.quantity)}
             </h3>
           )}
         </div>
@@ -84,7 +91,7 @@ class SingleProduct extends React.Component {
         <hr />
         <a name="Reviews">Reviews</a>
         {this.props.book.reviews}
-        <button onClick={this.toggle_review}>Add Review</button>
+        <button onClick={this.toggle_review}>Write a customer review</button>
 
         {this.state.addReviewToBook ? (
           <addReviewToBook addReviewToBook={this.addReviewToBook} />
