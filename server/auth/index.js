@@ -12,11 +12,10 @@ router.post('/login', async (req, res, next) => {
   try {
     User.findOne({
       where: {
-        email: req.body.email,
-        password: req.body.password
+        email: req.body.email
       }
     }).then(user => {
-      if (user) {
+      if (user.correctPassword(req.body.password)) {
         console.log(user)
         req.session.userId = user.id
         res.json(user)
