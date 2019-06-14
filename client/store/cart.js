@@ -6,11 +6,11 @@ import history from '../history'
  */
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+const MODIFY_QUANITY = 'MODIFY_QUANITY'
 /**
  * INITIAL STATE
  */
-const defaultCart = []
+const defaultCart = {}
 
 /**
  * ACTION CREATORS
@@ -23,8 +23,8 @@ const getCartAction = items => {
   return {type: GET_CART, items}
 }
 
-const removeFromCartAction = itemIndex => {
-  return {type: REMOVE_FROM_CART, itemIndex}
+const modifyCartAction = (id, changeAmount) => {
+  return {type: MODIFY_QUANITY, id, changeAmount}
 }
 /**
  * THUNK CREATORS
@@ -43,9 +43,22 @@ export const getCart = userId => {
   }
 }
 
-export const removeFromCart = itemIndex => {
+export const modifyCart = (id, changeAmount) => {
   return dispatch => {
-    dispatch(removeFromCartAction(itemIndex))
+    dispatch(modifyCartAction(id, changeAmount))
+  }
+}
+
+export const submitCart = (cart, status, email, address, userId) => {
+  return async dispatch => {
+    const {data} = await axios.post('/api/orders/cart', {
+      cart,
+      status,
+      email,
+      address,
+      userId
+    })
+    dispatch(getCartAction({}))
   }
 }
 /**
@@ -54,24 +67,31 @@ export const removeFromCart = itemIndex => {
 export default function(state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
-      return [...action.items]
-    case ADD_TO_CART:
-      if (action.quantity) {
-        let newState = [...state]
-        for (let i = 0; i < action.quantity; i++) {
-          newState.push(action.item)
-        }
-        return newState
+      return {...action.items}
+    case ADD_TO_CART: {
+      let newState = {...state}
+      const item = action.item
+      if (newState[item.id]) {
+        newState[item.id].quantity =
+          newState[item.id].quantity + action.quantity
       } else {
-        return [...state, action.item]
+        newState[item.id] = {quantity: action.quantity, book: item}
       }
-    case REMOVE_FROM_CART:
-      const removedItemArray = [
-        ...state.slice(0, action.itemIndex),
-        ...state.slice(action.itemIndex + 1)
-      ]
-
-      return removedItemArray
+      return newState
+    }
+    case MODIFY_QUANITY: {
+      let newState = {...state}
+      const id = action.id
+      if (newState[id].quantity > 1) {
+        newState[id].quantity = newState[id].quantity + action.changeAmount
+        if (newState[id].quantity < 1) {
+          delete newState[id]
+        }
+      } else {
+        delete newState[id]
+      }
+      return newState
+    }
     default:
       return state
   }

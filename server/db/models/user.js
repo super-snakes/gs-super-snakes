@@ -22,7 +22,19 @@ const User = db.define('user', {
       return () => this.getDataValue('password')
     }
   },
-  address: {
+  street: {
+    type: Sequelize.STRING
+  },
+  apt: {
+    type: Sequelize.STRING
+  },
+  city: {
+    type: Sequelize.STRING
+  },
+  state: {
+    type: Sequelize.STRING
+  },
+  zipCode: {
     type: Sequelize.STRING
   },
   phoneNumber: {
@@ -84,8 +96,9 @@ const setSaltAndPassword = user => {
   }
 }
 
-// User.beforeCreate(setSaltAndPassword)
-// User.beforeUpdate(setSaltAndPassword)
-// User.beforeBulkCreate(users => {
-//   users.forEach(setSaltAndPassword)
-// })
+
+User.beforeCreate(setSaltAndPassword)
+User.beforeUpdate(setSaltAndPassword)
+User.beforeBulkCreate(users => {
+  users.forEach(setSaltAndPassword)
+})

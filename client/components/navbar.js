@@ -24,6 +24,12 @@ const StyledBadge = withStyles(theme => ({
 }))(Badge)
 
 const Navbar = (props, {handleClick, isLoggedIn}) => {
+  let cartSize = 0
+  for (let key in props.cart) {
+    if (props.cart[key]) {
+      cartSize += props.cart[key].quantity
+    }
+  }
   return (
     <div>
       <Link to="/">
@@ -48,7 +54,7 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
         )}
         <Link to="/cart">
           <IconButton aria-label="Cart">
-            <StyledBadge badgeContent={props.cart.length} color="primary">
+            <StyledBadge badgeContent={cartSize} color="primary">
               <ShoppingCartIcon />
             </StyledBadge>
           </IconButton>

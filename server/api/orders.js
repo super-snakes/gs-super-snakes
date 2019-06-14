@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
+const {Order, Product, OrderProducts, User} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 module.exports = router
@@ -22,7 +22,36 @@ router.get('/cart/:id', async (req, res, next) => {
 
 router.post('/cart', async (req, res, next) => {
   try {
-    const newOrder = await Order.create(req.body)
+    const cart = req.body.cart
+    const status = req.body.status
+    const userId = req.body.userId
+    const address = req.body.address
+    const addressString = Object.values(address).join(' ')
+    const email = req.body.email
+    const newOrder = await Order.create({
+      status,
+      userId,
+      address: addressString,
+      email
+    })
+
+    for (let bookId in cart) {
+      await OrderProducts.create({
+        orderId: newOrder.id,
+        productId: cart[bookId].book.id,
+        quantity: cart[bookId].quantity,
+        price: cart[bookId].book.price
+      })
+    }
+
+    if (userId !== null) {
+      User.update(address, {
+        where: {
+          id: userId
+        }
+      })
+    }
+
     res.status(201).json(newOrder)
   } catch (err) {
     next(err)
@@ -31,7 +60,6 @@ router.post('/cart', async (req, res, next) => {
 
 router.put('/cart/:id', async (req, res, next) => {
   try {
-    console.log('here', req.body)
     await Order.update(req.body, {
       where: {
         id: +req.params.id
