@@ -11,9 +11,9 @@ import {submitCart, getCart} from '../store/cart'
 
 class UserHome extends React.Component {
   componentDidMount() {
-    if (this.user && this.user.id) {
-      this.props.setCart(this.user.id)
-      console.log(this.cart)
+    if (this.props.user) {
+      this.props.setCart(this.props.user.id)
+      console.log('THIS WAS DISPATCHED')
     }
   }
 

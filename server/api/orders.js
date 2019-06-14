@@ -12,9 +12,12 @@ router.get('/cart/:id', async (req, res, next) => {
       where: {
         userId: +req.params.id,
         status: 'pending'
-      }
+      },
+      include: [{model: Product, as: 'orderId'}]
     })
-    console.log(openOrder[0])
+    console.log('>>> ', openOrder[0].orderId[0].orderProducts.quantity)
+    //Loop through openOrder[0].orderId
+
     res.json(openOrder[0])
   } catch (err) {
     next(err)
