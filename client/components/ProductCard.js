@@ -16,7 +16,7 @@ const ProductCard = props => {
       <Link to={`/products/${id}`}>
         <h2>{title}</h2>
         <h3>{author}</h3>
-        <img src={imageUrl} />
+        <img src={imageUrl} height={250} width={200} />
         <p className="rating">{rating}</p>
         {salePercentageOff > 0 ? (
           <div className="salePrice">
