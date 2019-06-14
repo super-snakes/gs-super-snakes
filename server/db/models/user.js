@@ -77,7 +77,6 @@ User.encryptPassword = function(plainText, salt) {
     .digest('hex')
 }
 
-
 const setSaltAndPassword = user => {
   if (user.changed('password')) {
     user.salt = User.generateSalt()
@@ -85,9 +84,8 @@ const setSaltAndPassword = user => {
   }
 }
 
-
-// User.beforeCreate(setSaltAndPassword)
-// User.beforeUpdate(setSaltAndPassword)
-// User.beforeBulkCreate(users => {
-//   users.forEach(setSaltAndPassword)
-// })
+User.beforeCreate(setSaltAndPassword)
+User.beforeUpdate(setSaltAndPassword)
+User.beforeBulkCreate(users => {
+  users.forEach(setSaltAndPassword)
+})
