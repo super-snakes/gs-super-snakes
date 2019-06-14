@@ -26,7 +26,7 @@ router.post('/cart', async (req, res, next) => {
     const status = req.body.status
     const userId = req.body.userId
     const address = req.body.address
-    const addressString = Object.values(address).join(' ')
+    const addressString = address ? Object.values(address).join(' ') : null
     const email = req.body.email
     const newOrder = await Order.create({
       status,
@@ -44,7 +44,7 @@ router.post('/cart', async (req, res, next) => {
       })
     }
 
-    if (userId !== null) {
+    if (userId !== null && address !== null) {
       User.update(address, {
         where: {
           id: userId
