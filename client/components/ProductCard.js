@@ -14,7 +14,7 @@ const ProductCard = props => {
   return (
     <div className="productCard">
       <Link to={`/products/${id}`}>
-        <h2 flex-wrap="wrap">{title}</h2>
+        <h2>{title}</h2>
         <h3>{author}</h3>
         <img src={imageUrl} height={250} width={200} />
         <p className="rating">{rating}</p>
