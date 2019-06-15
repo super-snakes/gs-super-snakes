@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
+  // we dont need Id here but we make right associations in index.js
   // userId: {
   //   type: Sequelize.INTEGER,
   //   allowNull: true
