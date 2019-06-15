@@ -76,7 +76,11 @@ class Products extends React.Component {
             <ListSubheader>All Products</ListSubheader>
           </GridListTile>
           {books.map(book => {
-            return <ProductCard key={book.id} book={book} />
+            return (
+              <GridListTile>
+                <ProductCard key={book.id} book={book} />
+              </GridListTile>
+            )
           })}
         </GridList>
       </div>
