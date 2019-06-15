@@ -8,6 +8,8 @@ import Badge from '@material-ui/core/Badge'
 import {withStyles} from '@material-ui/core/styles'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import OauthLoginForm from './oauth-login-form'
+import Button from '@material-ui/core/Button'
+
 // import {stat} from 'fs'
 
 const StyledBadge = withStyles(theme => ({
@@ -46,9 +48,10 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
           </div>
         ) : (
           <div>
-            {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
+
             <Link to="/signup">Sign Up</Link>
+
             <Link to="/cart">Cart</Link>
           </div>
         )}
