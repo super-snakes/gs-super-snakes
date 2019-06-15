@@ -16,7 +16,7 @@ const library = [
     description:
       'Harry Potter and the Chamber of Secrets is a fantasy novel written by British author J. K. Rowling and the second novel in the Harry Potter series. The plot follows Harry\'s second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school\'s corridors warn that the "Chamber of Secrets" has been opened and that the "heir of Slytherin" would kill all pupils who do not come from all-magical families.',
     tags: 'fy',
-    quantity: 100000000,
+    quantity: 430,
     genre: 'fantasy',
     price: 300
   },

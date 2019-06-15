@@ -43,6 +43,7 @@ class SingleProduct extends React.Component {
 
   render() {
     let obj = this.props.book
+    let price = (obj.price / 100).toFixed(2)
     return (
       <div>
         <img src={this.props.book.imageUrl} height={200} />
@@ -66,13 +67,18 @@ class SingleProduct extends React.Component {
           </form>
           {obj.salePercentageOff > 0 ? (
             <h3>
-              SALE Discount: {obj.salePercentageOff * 100}% Price: ${obj.price -
-                obj.salePercentageOff}{' '}
+              Original Price: ${price}
+              <br />
+              Today's Sale: {obj.salePercentageOff}% off
+              <br />
+              Take it home for only ${(
+                price *
+                (100 - obj.salePercentageOff) /
+                100
+              ).toFixed(2)}!
             </h3>
           ) : (
-            <h3>
-              Price:{obj.price}*{obj.quantity}
-            </h3>
+            <h3>Price: ${price}</h3>
           )}
         </div>
         <a href="#Reviews">Reviews</a>
