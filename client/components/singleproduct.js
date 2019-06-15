@@ -53,10 +53,7 @@ class SingleProduct extends React.Component {
 
   render() {
     let obj = this.props.book
-    console.log(
-      'add to cart',
-      this.modifyCart(this.props.book.id, +this.state.quantity)
-    )
+    let price = (obj.price / 100).toFixed(2)
     return (
       <div>
         <img src={this.props.book.imageUrl} height={200} />
@@ -85,22 +82,18 @@ class SingleProduct extends React.Component {
           </form>
           {obj.salePercentageOff > 0 ? (
             <h3>
-              SALE Discount: {parseInt(obj.salePercentageOff)}% Price w/out
-              discount: ${obj.price / 100}
-              Price: ${(
-                parseInt(this.state.quantity) *
-                (obj.price / 100 -
-                  parseInt(obj.price / 100) * (obj.salePercentageOff / 100))
-              ).toFixed(2)}
+              Original Price: ${price}
+              <br />
+              Today's Sale: {obj.salePercentageOff}% off
+              <br />
+              Take it home for only ${(
+                price *
+                (100 - obj.salePercentageOff) /
+                100
+              ).toFixed(2)}!
             </h3>
           ) : (
-            <h3>
-              Price: ${(
-                parseInt(obj.price) /
-                100 *
-                parseInt(this.state.quantity)
-              ).toFixed(2)}
-            </h3>
+            <h3>Price: ${price}</h3>
           )}
         </div>
         <a href="#Reviews">Reviews</a>
