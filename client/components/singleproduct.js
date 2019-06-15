@@ -46,49 +46,58 @@ class SingleProduct extends React.Component {
     let price = (obj.price / 100).toFixed(2)
     return (
       <div>
-        <img src={this.props.book.imageUrl} height={200} />
-        <h3>{obj.title}</h3>
-        <h5>by {obj.author}</h5>
-        <h3>Genre: {obj.genre}</h3>
-        <button>Add to wish list</button>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <h3>Quantity: {obj.quantity}</h3>
+        <div style={{display: 'flex'}}>
+          <img
+            className="imageFixed"
+            src={this.props.book.imageUrl}
+            height={200}
+            style={{padding: '25px'}}
+          />
+          <div style={{display: 'flex-direction: column'}}>
+            <h3>{obj.title}</h3>
+            <h5> by {obj.author} </h5>
+            {obj.salePercentageOff > 0 ? (
+              <h3>
+                Original Price: ${price}
+                <br />
+                Today's Sale: {obj.salePercentageOff}% off
+                <br />
+                Take it home for only ${(
+                  price *
+                  (100 - obj.salePercentageOff) /
+                  100
+                ).toFixed(2)}!
+              </h3>
+            ) : (
+              <h3>Price: ${price}</h3>
+            )}
 
-            <input
-              type="number"
-              name="quantity"
-              min="1"
-              max="100"
-              placeholder="1"
-              onChange={this.handleChange}
-            />
-            <button type="submit">Add to Cart</button>
-          </form>
-          {obj.salePercentageOff > 0 ? (
-            <h3>
-              Original Price: ${price}
+            <div />
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="number"
+                name="quantity"
+                min="1"
+                max="100"
+                placeholder="1"
+                onChange={this.handleChange}
+              />
+              <button type="submit">Add to Cart</button>
               <br />
-              Today's Sale: {obj.salePercentageOff}% off
-              <br />
-              Take it home for only ${(
-                price *
-                (100 - obj.salePercentageOff) /
-                100
-              ).toFixed(2)}!
-            </h3>
-          ) : (
-            <h3>Price: ${price}</h3>
-          )}
+              <button>Add to wish list</button>
+            </form>
+          </div>
         </div>
-        <a href="#Reviews">Reviews</a>
         <div>
+          <h3>Genre: {obj.genre}</h3>
           <h4>Book Overview</h4>
           <h6>{obj.description}</h6>
         </div>
 
         <hr />
-        <a name="Reviews">Reviews</a>
+        <a href="#Reviews" style={{padding: '8px'}}>
+          Reviews
+        </a>
         {this.props.book.reviews}
         <button onClick={this.toggle_review}>Add Review</button>
 

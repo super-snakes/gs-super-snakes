@@ -70,7 +70,7 @@ class Products extends React.Component {
     const books = this.props.products
     return (
       <div id="allProductsWrapper">
-        <GridList cellHeight={180}>
+        <GridList cellHeight={180} style={{padding: '25px'}}>
           {/* <GridListTile key="Subheader" cols={2} style={{height: 'auto'}} /> */}
           {books.map(book => {
             return <ProductCard key={book.id} book={book} />

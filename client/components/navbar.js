@@ -112,7 +112,8 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
           </Link>
           <OauthLoginForm
             style={{
-              display: 'inline'
+              display: 'inline',
+              padding: '10px'
             }}
           />
         </span>
