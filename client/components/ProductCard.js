@@ -46,7 +46,9 @@ const ProductCard = props => {
       </Link>
       <button
         type="button"
-        onClick={() => props.addToCart(id, 1)}
+        onClick={() => {
+          props.addToCart(id, 1)
+        }}
         style={{margin: '10px'}}
       >
         Add to my Cart
@@ -61,4 +63,10 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(null, mapDispatch)(ProductCard)
+const mapState = state => {
+  return {
+    cart: state.cart
+  }
+}
+
+export default connect(mapState, mapDispatch)(ProductCard)

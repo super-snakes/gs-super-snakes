@@ -77,6 +77,8 @@ export default function(state = defaultCart, action) {
       } else {
         newState[item.id] = {quantity: action.quantity, book: item}
       }
+      window.localStorage.setItem('localCart', JSON.stringify(newState))
+
       return newState
     }
     case MODIFY_QUANITY: {
@@ -90,6 +92,8 @@ export default function(state = defaultCart, action) {
       } else {
         delete newState[id]
       }
+      window.localStorage.setItem('localCart', JSON.stringify(newState))
+
       return newState
     }
     default:
