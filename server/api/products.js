@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, reviews} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 module.exports = router
@@ -31,13 +31,20 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
+  const id = req.params.id
   try {
-    await Product.update(req.body, {
+    const [numberRows, arrayProducts] = await Product.update(req.body, {
       where: {
-        id: req.params.id
-      }
+        id: id
+      },
+      returning: true,
+      plain: true
     })
-    res.sendStatus(200)
+    if (arrayProducts.length === 0) {
+      res.status(500).send()
+    } else {
+      res.status(200).json({products: arrayProducts})
+    }
   } catch (err) {
     next(err)
   }

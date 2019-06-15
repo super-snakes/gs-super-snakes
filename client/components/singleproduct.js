@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {addToCart} from '../store/cart'
+import {addToCart, modifyCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {getSingleBookThunk} from '../store/singleproductReducer'
 import {Link} from 'react-router-dom'
-import {modifyCart} from '../store/cart'
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -15,6 +14,8 @@ class SingleProduct extends React.Component {
     this.toggle_review = this.toggle_review.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.modifyCart = this.modifyCart.bind(this)
+    this.addToCart = this.addToCart.bind(this)
   }
 
   componentDidMount() {
@@ -23,6 +24,14 @@ class SingleProduct extends React.Component {
 
   addReviewToBook(newReview) {
     this.props.addReviewToBook(newReview)
+  }
+
+  addToCart(id, quantity) {
+    this.props.addToCart(id, quantity)
+  }
+
+  modifyCart(id, changeAmount) {
+    this.props.modifyCart(id, changeAmount)
   }
 
   toggle_review(event) {
@@ -44,7 +53,10 @@ class SingleProduct extends React.Component {
 
   render() {
     let obj = this.props.book
-    console.log(obj.price / 100)
+    console.log(
+      'add to cart',
+      this.modifyCart(this.props.book.id, +this.state.quantity)
+    )
     return (
       <div>
         <img src={this.props.book.imageUrl} height={200} />
@@ -54,7 +66,7 @@ class SingleProduct extends React.Component {
         <button>Add to wish list</button>
         <div>
           <form onSubmit={this.handleSubmit}>
-            {/* <h3>Quantity: {this.state.quantity}</h3> */}
+            <h3>Quantity: {+this.state.quantity}</h3>
 
             <input
               type="number"
@@ -64,21 +76,30 @@ class SingleProduct extends React.Component {
               placeholder="1"
               onChange={this.handleChange}
             />
-            <button type="submit">Add to Cart</button>
+            <button
+              type="submit"
+              onClick={() => this.state.modifyCart(obj.id, this.state.quantity)}
+            >
+              Add to Cart
+            </button>
           </form>
           {obj.salePercentageOff > 0 ? (
             <h3>
               SALE Discount: {parseInt(obj.salePercentageOff)}% Price w/out
               discount: ${obj.price / 100}
-              Price: ${parseInt(this.state.quantity) *
+              Price: ${(
+                parseInt(this.state.quantity) *
                 (obj.price / 100 -
-                  parseInt(obj.price / 100) * (obj.salePercentageOff / 100))}
+                  parseInt(obj.price / 100) * (obj.salePercentageOff / 100))
+              ).toFixed(2)}
             </h3>
           ) : (
             <h3>
-              Price: ${parseInt(obj.price) /
+              Price: ${(
+                parseInt(obj.price) /
                 100 *
-                parseInt(this.state.quantity)}
+                parseInt(this.state.quantity)
+              ).toFixed(2)}
             </h3>
           )}
         </div>
@@ -111,6 +132,9 @@ const mapDispatchToProps = dispatch => {
     addReview: newReview => dispatch(addReviewToBookThunk(newReview)),
     addToCart: (productId, quantity) => {
       return dispatch(addToCart(productId, quantity))
+    },
+    modifyCart: (id, changeAmount) => {
+      return dispatch(modifyCart(id, changeAmount))
     }
   }
 }
