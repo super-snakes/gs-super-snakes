@@ -44,6 +44,7 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import IconButton from '@material-ui/core/IconButton'
 import InfoIcon from '@material-ui/icons/Info'
 import red from '@material-ui/core/colors/red'
+import AdminFormToggle from './adminFormToggle'
 
 const useStyles = {
   root: {
@@ -70,6 +71,7 @@ class Products extends React.Component {
     const books = this.props.products
     return (
       <div id="allProductsWrapper">
+        <AdminFormToggle />
         <GridList cellHeight={180}>
           {/* <GridListTile key="Subheader" cols={2} style={{height: 'auto'}} /> */}
           {books.map(book => {
