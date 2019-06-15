@@ -73,6 +73,16 @@ const library = [
     tags: 'f',
     genre: 'horror',
     price: 200
+  },
+  {
+    title: 'The Witches',
+    author: 'Roald Dahl',
+    imageUrl: 'http://www.gtps.k12.nj.us/technology/litcircles5th/witches.jpg',
+    description:
+      "The Witches is a children's fantasy novel by the British writer Roald Dahl. The story is set partly in Norway and partly in the United Kingdom, and features the experiences of a young British boy and his Norwegian grandmother in a world where child-hating societies of witches secretly exist in every country.",
+    tags: 'fc',
+    genre: 'childrens',
+    price: 795
   }
 ]
 

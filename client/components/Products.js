@@ -45,7 +45,7 @@ import IconButton from '@material-ui/core/IconButton'
 import InfoIcon from '@material-ui/icons/Info'
 import red from '@material-ui/core/colors/red'
 
-const useStyles = () => ({
+const useStyles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -59,7 +59,7 @@ const useStyles = () => ({
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
   }
-})
+}
 
 class Products extends React.Component {
   componentDidMount() {
@@ -67,14 +67,11 @@ class Products extends React.Component {
   }
 
   render() {
-    const classes = useStyles()
     const books = this.props.products
     return (
-      <div className={classes.root.display} id="allProductsWrapper">
+      <div id="allProductsWrapper">
         <GridList cellHeight={180}>
-          <GridListTile key="Subheader" cols={2} style={{height: 'auto'}}>
-            <ListSubheader>All Products</ListSubheader>
-          </GridListTile>
+          {/* <GridListTile key="Subheader" cols={2} style={{height: 'auto'}} /> */}
           {books.map(book => {
             return <ProductCard key={book.id} book={book} />
           })}
