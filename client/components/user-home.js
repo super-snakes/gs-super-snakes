@@ -12,7 +12,13 @@ import {submitCart, getCart} from '../store/cart'
 class UserHome extends React.Component {
   componentDidMount() {
     if (this.props.user) {
-      this.props.setCart(this.props.user.id)
+      this.props.setCart(
+        this.props.cart,
+        'pending',
+        this.props.user.email,
+        null,
+        this.props.user.id
+      )
       console.log('THIS WAS DISPATCHED')
     }
   }
@@ -93,6 +99,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
     },
     setCart(id) {
+      dispatch(submitCart(cart, status, email, address, id))
       dispatch(getCart(id))
     }
   }
