@@ -2,9 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {submitCart} from '../store/cart'
 
-//TODO
-// handle submit
-// validators
+//TO:
+// Material UI form validators
 
 class CheckoutForm extends React.Component {
   constructor(props) {
@@ -12,7 +11,11 @@ class CheckoutForm extends React.Component {
     this.state = {
       name: '',
       card: '',
-      address: '',
+      street: '',
+      apt: '',
+      city: '',
+      state: '',
+      zipCode: '',
       email: ''
     }
     this.handleChange = this.handleChange.bind(this)
@@ -24,7 +27,11 @@ class CheckoutForm extends React.Component {
     this.setState({
       name: user.name || 'Name',
       card: user.paymentInformation || 'Card number',
-      address: user.address || 'Address',
+      street: user.street || 'Street',
+      apt: user.apt || '',
+      city: user.city || 'City',
+      state: user.state || 'State',
+      zipCode: user.zipCode || 'Zip Code',
       email: user.email || 'Email'
     })
   }
@@ -37,16 +44,19 @@ class CheckoutForm extends React.Component {
     event.preventDefault()
     const id = this.props.user.id
     const status = 'shipped'
-    // let items = [];
-    // this.props.cart.forEach(el => {
-    //     items.push(el.id)
-    // });
+    const address = {
+      street: this.state.street,
+      apt: this.state.apt || null,
+      city: this.state.city,
+      state: this.state.state,
+      zipCode: this.state.zipCode
+    }
 
     this.props.submitCart(
       this.props.cart,
       status,
       this.state.email,
-      this.state.address,
+      address,
       id
     )
   }
@@ -74,28 +84,55 @@ class CheckoutForm extends React.Component {
             required
           />
 
-          <label htmlFor="address">Address:</label>
-          <input
-            onChange={this.handleChange}
-            name="address"
-            type="text"
-            value={this.state.address}
-            required
-          />
-
           <label htmlFor="email">Email:</label>
           <input
             onChange={this.handleChange}
             name="email"
-            type="text"
+            type="email"
             value={this.state.email}
             required
           />
-          {/* <input onChange={this.handleChange} name="street1" type="text" />
-                    <input onChange={this.handleChange} name="street2" type="text" />
-                    <input onChange={this.handleChange} name="city" type="text" />
-                    <input onChange={this.handleChange} name="state" type="text" />
-                    <input onChange={this.handleChange} name="zipCode" type="text" /> */}
+
+          <label htmlFor="street">Street:</label>
+          <input
+            onChange={this.handleChange}
+            name="street"
+            type="text"
+            value={this.state.street}
+          />
+
+          <label htmlFor="apt">Apt/Unit:</label>
+          <input
+            onChange={this.handleChange}
+            name="apt"
+            type="text"
+            value={this.state.apt}
+          />
+
+          <label htmlFor="city">City:</label>
+          <input
+            onChange={this.handleChange}
+            name="city"
+            type="text"
+            value={this.state.city}
+          />
+
+          <label htmlFor="state">State:</label>
+          <input
+            onChange={this.handleChange}
+            name="state"
+            type="text"
+            value={this.state.state}
+          />
+
+          <label htmlFor="zipCode">Zip Code:</label>
+          <input
+            onChange={this.handleChange}
+            name="zipCode"
+            type="text"
+            value={this.state.zipCode}
+          />
+
           <button type="submit">Submit</button>
         </form>
       </div>
@@ -103,11 +140,6 @@ class CheckoutForm extends React.Component {
   }
 }
 
-/* On submit
-    - state cart --> db with 'status that is not pending'
-    - clear the state cart
-    - reroute somewhere or "ORDER IS ON THE WAYY"  
-*/
 const mapToState = state => ({
   cart: state.cart,
   user: state.user
@@ -119,11 +151,3 @@ const mapToDispatch = dispatch => ({
 })
 
 export default connect(mapToState, mapToDispatch)(CheckoutForm)
-
-{
-  /* <input onChange={this.handleChange} name="street1" type="text" />
-<input onChange={this.handleChange} name="street2" type="text" />
-<input onChange={this.handleChange} name="city" type="text" />
-<input onChange={this.handleChange} name="state" type="text" />
-<input onChange={this.handleChange} name="zipCode" type="text" />  */
-}

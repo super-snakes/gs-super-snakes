@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, Product, OrderProducts} = require('../db/models')
+const {Order, Product, OrderProducts, User} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 module.exports = router
@@ -26,11 +26,12 @@ router.post('/cart', async (req, res, next) => {
     const status = req.body.status
     const userId = req.body.userId
     const address = req.body.address
+    const addressString = Object.values(address).join(' ')
     const email = req.body.email
     const newOrder = await Order.create({
       status,
       userId,
-      address,
+      address: addressString,
       email
     })
 
@@ -40,6 +41,14 @@ router.post('/cart', async (req, res, next) => {
         productId: cart[bookId].book.id,
         quantity: cart[bookId].quantity,
         price: cart[bookId].book.price
+      })
+    }
+
+    if (userId !== null) {
+      User.update(address, {
+        where: {
+          id: userId
+        }
       })
     }
 

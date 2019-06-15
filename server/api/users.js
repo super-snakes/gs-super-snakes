@@ -3,6 +3,16 @@ const {User, Product, Reviews, Order} = require('../db/models')
 
 module.exports = router
 
+// function isSelfOrAdmin(req, res, next) {
+//   if (req.params.id == req.user.id || req.user.isAdmin) return next()
+//   res.redirect('/')
+// }
+
+// function isAdmin(req, res, next) {
+//   if (req.user.isAdmin) return next()
+//   res.redirect('/')
+// }
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll()
