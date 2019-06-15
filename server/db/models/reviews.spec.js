@@ -12,7 +12,7 @@ afterEach(() => {
 })
 
 describe('Write review', () => {
-  it('will add a review and return the new object', done => {
+  it('will add a review and return the new object', async () => {
     Review.create({
       content: 'Interesting'
     })
