@@ -38,7 +38,7 @@ router.delete('/:id', async (req, res, next) => {
         id: id
       }
     })
-    res.sendStatus(2004)
+    res.sendStatus(200)
   } catch (err) {
     next(err)
   }
