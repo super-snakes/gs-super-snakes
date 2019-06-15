@@ -32,6 +32,7 @@ class NewBookForm extends Component {
     })
   }
   render() {
+    console.log('we are here', this)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -125,6 +126,7 @@ class NewBookForm extends Component {
               onChange={this.handleChange}
             />
           </label>
+          <button type="submit">Submit</button>
         </form>
       </div>
     )

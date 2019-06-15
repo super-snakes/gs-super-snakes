@@ -30,6 +30,20 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.delete('/:id', async (req, res, next) => {
+  const id = req.params.id
+  try {
+    Product.destroy({
+      where: {
+        id: id
+      }
+    })
+    res.sendStatus(2004)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/:id', async (req, res, next) => {
   const id = req.params.id
   try {

@@ -28,6 +28,7 @@ export const addProductThunk = () => {
     }
   }
 }
+
 export default function(state = defaultProducts, action) {
   switch (action.type) {
     case GOT_PRODUCTS: {
