@@ -8,6 +8,8 @@ import Badge from '@material-ui/core/Badge'
 import {withStyles} from '@material-ui/core/styles'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import OauthLoginForm from './oauth-login-form'
+import Button from '@material-ui/core/Button'
+
 // import {stat} from 'fs'
 
 const StyledBadge = withStyles(theme => ({
@@ -31,35 +33,90 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
     }
   }
   return (
-    <div>
+    <div style={{backgroundColor: '#2F4F4F'}}>
       <Link to="/">
-        <h1>Super Snakes</h1>
+        <span>
+          <h1
+            style={{
+              fontFamily: 'Comic Sans MS',
+              fontSize: '36px',
+              margin: '20px',
+              marginTop: '10px',
+              color: 'white'
+            }}
+          >
+            Super Snakes Bookstore
+          </h1>
+          <img
+            src="https://png.pngtree.com/element_origin_min_pic/17/08/15/3cfdfa77493149f83c91de3e69e1dcaf.jpg"
+            style={{
+              width: '100px',
+              height: '125px',
+              position: 'absolute',
+              right: '25px',
+              border: '3px solid #73AD21',
+              padding: '10px'
+            }}
+          />
+        </span>
       </Link>
       <nav>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
+            <Link
+              to="/home"
+              style={{
+                color: 'white'
+              }}
+            >
+              Home
+            </Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
           </div>
         ) : (
           <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-            <Link to="/cart">Cart</Link>
+            <Link
+              to="/login"
+              style={{
+                color: 'white'
+              }}
+            >
+              Login
+            </Link>
+
+            <Link
+              to="/signup"
+              style={{
+                color: 'white'
+              }}
+            >
+              Sign Up
+            </Link>
           </div>
         )}
-        <Link to="/cart">
-          <IconButton aria-label="Cart">
-            <StyledBadge badgeContent={cartSize} color="primary">
-              <ShoppingCartIcon />
-            </StyledBadge>
-          </IconButton>
-        </Link>
-        <OauthLoginForm />
+        <span>
+          <Link to="/cart">
+            <IconButton
+              aria-label="Cart"
+              style={{
+                display: 'inline'
+              }}
+            >
+              <StyledBadge badgeContent={cartSize} color="primary">
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          </Link>
+          <OauthLoginForm
+            style={{
+              display: 'inline',
+              padding: '10px'
+            }}
+          />
+        </span>
       </nav>
       <hr />
     </div>

@@ -19,3 +19,9 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.imageFixed {
+  left: '25px';
+  border: '3px solid #73AD21';
+  padding: '10px';
+}

@@ -9,26 +9,25 @@ const {User, Product} = require('../server/db/models')
 
 const library = [
   {
-    title: 'Harry Potter and the Chamber of Secrets',
+    title: 'The Chamber of Secrets',
     author: 'J.K. Rowling',
     imageUrl:
-      'https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Harry_Potter_and_the_Chamber_of_Secrets.jpg/220px-Harry_Potter_and_the_Chamber_of_Secrets.jpg',
+      'https://images-na.ssl-images-amazon.com/images/I/51jNORv6nQL._SX340_BO1,204,203,200_.jpg',
     description:
       'Harry Potter and the Chamber of Secrets is a fantasy novel written by British author J. K. Rowling and the second novel in the Harry Potter series. The plot follows Harry\'s second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school\'s corridors warn that the "Chamber of Secrets" has been opened and that the "heir of Slytherin" would kill all pupils who do not come from all-magical families.',
     tags: 'fy',
-    quantity: 100000000,
+    quantity: 430,
     genre: 'fantasy',
     price: 300
   },
   {
-    title: 'Of Human Bondage',
-    author: 'W. Somerset Maugham',
-    imageUrl:
-      'https://upload.wikimedia.org/wikipedia/en/thumb/4/41/OfHumanBondage.jpg/220px-OfHumanBondage.jpg',
+    title: 'Love in the Time of Cholera',
+    author: 'Gabriel Garcia Marquez',
+    imageUrl: 'https://www.bookstellyouwhy.com/pictures/23828.jpg',
     description:
-      'Of Human Bondage is a 1915 novel by W. Somerset Maugham. It is generally agreed to be his masterpiece and to be strongly autobiographical in nature, although Maugham stated, "This is a novel, not an autobiography, though much in it is autobiographical, more is pure invention."',
+      'Love in the Time of Cholera (Spanish: El amor en los tiempos del cólera) is a novel by Colombian Nobel prize winning author Gabriel García Márquez. The novel was first published in Spanish in 1985. Alfred A. Knopf published an English translation in 1988, and an English-language movie adaptation was released in 2007.',
     tags: 'f',
-    genre: 'coming of age',
+    genre: 'romance',
     price: 400,
     salePercentageOff: 20
   },
@@ -42,6 +41,48 @@ const library = [
     tags: 'f',
     genre: 'fantasy',
     price: 600
+  },
+  {
+    title: 'The Stranger',
+    author: 'Albert Camus',
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/en/f/f7/L%E2%80%99%C3%89tranger_%28Camus_novel%29.jpg',
+    description:
+      "L’Étranger (The Outsider [UK], or The Stranger [US]) is a 1942 novel by French author Albert Camus. Its theme and outlook are often cited as examples of Camus's philosophy of the absurd and existentialism, though Camus personally rejected the latter label.",
+    tags: 'f',
+    genre: 'philosophical novel',
+    price: 1200
+  },
+  {
+    title: 'East of Eden',
+    author: 'John Steinbeck',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/5/56/EastOfEden.jpg',
+    description:
+      "East of Eden is a novel by Nobel Prize winner John Steinbeck, published in September 1952. Often described as Steinbeck's most ambitious novel, East of Eden brings to life the intricate details of two families, the Trasks and the Hamiltons, and their interwoven stories.",
+    tags: 'f',
+    genre: 'fiction',
+    price: 900
+  },
+  {
+    title: 'Misery',
+    author: 'Stephen King',
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/en/6/6f/Stephen_King_Misery_cover.jpg',
+    description:
+      "Misery is an American psychological thriller novel written by Stephen King and first published by Viking Press in 1987. The novel's narrative is based on the relationship of its two main characters – the popular writer Paul Sheldon and his psychotic fan Annie Wilkes.",
+    tags: 'f',
+    genre: 'horror',
+    price: 200
+  },
+  {
+    title: 'The Witches',
+    author: 'Roald Dahl',
+    imageUrl: 'http://www.gtps.k12.nj.us/technology/litcircles5th/witches.jpg',
+    description:
+      "The Witches is a children's fantasy novel by the British writer Roald Dahl. The story is set partly in Norway and partly in the United Kingdom, and features the experiences of a young British boy and his Norwegian grandmother in a world where child-hating societies of witches secretly exist in every country.",
+    tags: 'fc',
+    genre: 'childrens',
+    price: 795
   }
 ]
 
