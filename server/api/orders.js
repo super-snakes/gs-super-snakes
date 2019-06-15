@@ -4,8 +4,6 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 module.exports = router
 
-//retrieve cart (pending order)
-
 router.get('/cart/:id', async (req, res, next) => {
   try {
     const openOrder = await Order.findAll({
@@ -15,13 +13,11 @@ router.get('/cart/:id', async (req, res, next) => {
       },
       include: [{model: Product, as: 'orderId'}]
     })
-    // console.log('>>> ', openOrder[0].orderId[0].orderProducts.quantity)
-    //Loop through openOrder[0].orderId
     const cartToSend = {}
     openOrder[0].orderId.forEach(book => {
       cartToSend[book.id] = {quantity: book.orderProducts.quantity, book: book}
     })
-    console.log('>>> ', cartToSend)
+    openOrder[0].destroy()
     res.json(cartToSend)
   } catch (err) {
     next(err)
