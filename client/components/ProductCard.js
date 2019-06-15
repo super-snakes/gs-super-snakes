@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {addToCart} from '../store/cart'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const style = {
   margin: '10px',
@@ -51,9 +52,14 @@ const ProductCard = props => {
       >
         Add to my Cart
       </button>
+      {props.user.isAdmin ? <DeleteIcon /> : false}
     </div>
   )
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+})
 
 const mapDispatch = dispatch => {
   return {
@@ -61,4 +67,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(null, mapDispatch)(ProductCard)
+export default connect(mapStateToProps, mapDispatch)(ProductCard)
