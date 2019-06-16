@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_CART = 'GET_CART'
+const GET_CART_FROM_LOCALSTORAGE = 'GET_CART_FROM_LOCALSTORAGE'
 const ADD_TO_CART = 'ADD_TO_CART'
 const MODIFY_QUANITY = 'MODIFY_QUANITY'
 /**
@@ -21,6 +22,10 @@ const addToCartAction = (item, quantity) => {
 
 const getCartAction = items => {
   return {type: GET_CART, items}
+}
+
+const getCartFromLocalStorageAction = items => {
+  return {type: GET_CART_FROM_LOCALSTORAGE, items}
 }
 
 const modifyCartAction = (id, changeAmount) => {
@@ -40,6 +45,13 @@ export const getCart = userId => {
   return async dispatch => {
     const {data} = await axios.get(`/api/orders/cart/${userId}`)
     dispatch(getCartAction(data))
+  }
+}
+
+export const getCartFromLocalStorage = () => {
+  return dispatch => {
+    const data = window.localStorage.getItem('localCart')
+    dispatch(getCartFromLocalStorageAction(JSON.parse(data)))
   }
 }
 
@@ -68,6 +80,9 @@ export default function(state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
       return {...action.items}
+    case GET_CART_FROM_LOCALSTORAGE: {
+      return action.items
+    }
     case ADD_TO_CART: {
       let newState = {...state}
       const item = action.item

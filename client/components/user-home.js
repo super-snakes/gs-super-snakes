@@ -12,13 +12,6 @@ import {submitCart, getCart} from '../store/cart'
 class UserHome extends React.Component {
   componentDidMount() {
     if (this.props.user) {
-      // this.props.setCart(
-      //   this.props.cart,
-      //   'pending',
-      //   this.props.user.email,
-      //   null,
-      //   this.props.user.id
-      // )
       this.props.setCart(this.props.user.id)
       console.log('THIS WAS DISPATCHED')
     }
@@ -52,37 +45,6 @@ class UserHome extends React.Component {
   }
 }
 
-// export const UserHome = props => {
-//   const {user, handleClick} = props
-
-//   if (user.id) {
-//     props.setCart(user.id)
-//   }
-
-//   if (!user.id) {
-//     return <Redirect to="/" />
-//   }
-
-//   return (
-//     <div className="h100 w100 flex column align-items-center justify-center">
-//       <div className="flex">
-//         <img src={user.imageUrl} className="rounded mr1" />
-//         <h1>Welcome {user.email}!</h1>
-//       </div>
-//       <div>
-//         <button
-//           className="btn bg-red white p1 rounded"
-//           onClick={() =>
-//             handleClick(props.cart, 'pending', user.email, null, user.id)
-//           }
-//         >
-//           Logout
-//         </button>
-//       </div>
-//     </div>
-//   )
-// }
-
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user,
@@ -98,6 +60,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       if (Object.values(cart).length) {
         dispatch(submitCart(cart, status, email, address, id))
       }
+      window.localStorage.clear()
     },
     setCart(id) {
       // dispatch(submitCart(cart, status, email, address, id))
