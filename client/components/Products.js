@@ -72,6 +72,7 @@ class Products extends React.Component {
     const books = this.props.products
     return (
       <div id="allProductsWrapper">
+        {/* {this.props.user.isAdmin?( <AdminFormToggle />): (false)} */}
         <AdminFormToggle />
         <GridList cellHeight={180}>
           {/* <GridListTile key="Subheader" cols={2} style={{height: 'auto'}} /> */}

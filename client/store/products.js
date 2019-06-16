@@ -45,6 +45,8 @@ export const addProductThunk = product => {
 }
 
 export default function(state = defaultProducts, action) {
+  console.log('ACTION: ', action)
+  console.log('STATE: ', state)
   switch (action.type) {
     case GOT_PRODUCTS: {
       console.log('products', action)
@@ -55,9 +57,9 @@ export default function(state = defaultProducts, action) {
       return [...state, action.product]
     }
     case DELETE_PRODUCT: {
-      console.log('ACTION: ', action)
-      console.log('STATE: ', state)
-      return state.filter(product => product.id != action.id)
+      console.log('ACTION inside delete: ', action)
+      console.log('STATE inside delete: ', state)
+      return state.filter(product => product.id != action.product)
     }
     default: {
       return state
