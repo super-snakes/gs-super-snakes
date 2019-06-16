@@ -14,13 +14,54 @@ router.get('/cart/:id', async (req, res, next) => {
       include: [{model: Product, as: 'orderId'}]
     })
     const cartToSend = {}
-    openOrder[0].orderId.forEach(book => {
-      cartToSend[book.id] = {quantity: book.orderProducts.quantity, book: book}
-    })
-    openOrder[0].destroy()
+    if (openOrder[0].orderId) {
+      openOrder[0].orderId.forEach(book => {
+        cartToSend[book.id] = {
+          quantity: book.orderProducts.quantity,
+          book: book
+        }
+      })
+      openOrder[0].destroy()
+    }
     res.json(cartToSend)
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/cart/orderHistory/:id', async (req, res, next) => {
+  try {
+    const orderHistory = await Order.findAll({
+      where: {
+        userId: +req.params.id,
+        status: {
+          [Op.not]: 'pending'
+        }
+      },
+      include: [{model: Product, as: 'orderId'}]
+    })
+
+    let returnOrders = []
+
+    for (let i = 0; i < orderHistory.length; i++) {
+      let order = []
+      let books = orderHistory[i].orderId
+      for (let j = 0; j < books.length; j++) {
+        const book = books[j]
+        const id = book.id
+        const title = book.title
+        const author = book.author
+        const imageUrl = book.imageUrl
+        const description = book.description
+        const price = book.orderProducts.price
+        const quantity = book.orderProducts.quantity
+        order.push({id, title, author, imageUrl, description, price, quantity})
+      }
+      returnOrders.push(order)
+    }
+    res.json(returnOrders)
+  } catch (error) {
+    next(error)
   }
 })
 

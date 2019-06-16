@@ -43,6 +43,7 @@ class CheckoutForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     const id = this.props.user.id
+    console.log(id, this.props.user)
     const status = 'shipped'
     const address = {
       street: this.state.street,
