@@ -4,19 +4,64 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 module.exports = router
 
-//retrieve cart (pending order)
-
 router.get('/cart/:id', async (req, res, next) => {
   try {
     const openOrder = await Order.findAll({
       where: {
-        id: +req.params.id,
+        userId: +req.params.id,
         status: 'pending'
-      }
+      },
+      include: [{model: Product, as: 'orderId'}]
     })
-    res.json(openOrder[0])
+    const cartToSend = {}
+    if (openOrder[0].orderId) {
+      openOrder[0].orderId.forEach(book => {
+        cartToSend[book.id] = {
+          quantity: book.orderProducts.quantity,
+          book: book
+        }
+      })
+      openOrder[0].destroy()
+    }
+    res.json(cartToSend)
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/cart/orderHistory/:id', async (req, res, next) => {
+  try {
+    const orderHistory = await Order.findAll({
+      where: {
+        userId: +req.params.id,
+        status: {
+          [Op.not]: 'pending'
+        }
+      },
+      include: [{model: Product, as: 'orderId'}]
+    })
+
+    let returnOrders = []
+
+    for (let i = 0; i < orderHistory.length; i++) {
+      let order = []
+      let books = orderHistory[i].orderId
+      for (let j = 0; j < books.length; j++) {
+        const book = books[j]
+        const id = book.id
+        const title = book.title
+        const author = book.author
+        const imageUrl = book.imageUrl
+        const description = book.description
+        const price = book.orderProducts.price
+        const quantity = book.orderProducts.quantity
+        order.push({id, title, author, imageUrl, description, price, quantity})
+      }
+      returnOrders.push(order)
+    }
+    res.json(returnOrders)
+  } catch (error) {
+    next(error)
   }
 })
 
@@ -26,7 +71,7 @@ router.post('/cart', async (req, res, next) => {
     const status = req.body.status
     const userId = req.body.userId
     const address = req.body.address
-    const addressString = Object.values(address).join(' ')
+    const addressString = address ? Object.values(address).join(' ') : null
     const email = req.body.email
     const newOrder = await Order.create({
       status,
@@ -44,7 +89,7 @@ router.post('/cart', async (req, res, next) => {
       })
     }
 
-    if (userId !== null) {
+    if (userId !== null && address !== null) {
       User.update(address, {
         where: {
           id: userId

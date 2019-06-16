@@ -61,7 +61,7 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
         </span>
       </Link>
       <nav>
-        {isLoggedIn ? (
+        {props.user.id ? (
           <div>
             {/* The navbar will show these links after you log in */}
             <Link
@@ -129,7 +129,8 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 

@@ -16,7 +16,6 @@ router.post('/login', async (req, res, next) => {
       }
     }).then(user => {
       if (user.correctPassword(req.body.password)) {
-        console.log(user)
         req.session.userId = user.id
         res.json(user)
       } else {

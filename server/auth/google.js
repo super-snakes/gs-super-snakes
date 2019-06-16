@@ -24,8 +24,6 @@ passport.use(
       callbackURL: '/auth/google/callback'
     },
     (token, refreshToken, profile, done) => {
-      console.log('---', 'in verfication callback', profile, '---')
-
       const googleId = profile.id
       const name = profile.displayName
       const email = profile.emails[0].value
@@ -43,14 +41,11 @@ passport.use(
         })
         .catch(done)
       passport.serializeUser((user, done) => {
-        console.log('SerializeUser')
         done(null, user.id)
       })
       passport.deserializeUser((id, done) => {
-        console.log('deserializeUser')
         User.findByPk(id)
           .then(user => {
-            console.log('')
             done(null, user)
           })
           .catch(err => {
