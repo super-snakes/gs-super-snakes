@@ -3,12 +3,15 @@ import {addToCart, modifyCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {getSingleBookThunk} from '../store/singleproductReducer'
 import {Link} from 'react-router-dom'
+import UpdateBookForm from '../components/updateBookForm'
+import {updateProductThunk} from '../store/singleproductReducer'
 
 class SingleProduct extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       showAddReview: false,
+      showUpdateProduct: false,
       quantity: '0'
     }
     this.toggle_review = this.toggle_review.bind(this)
@@ -16,6 +19,8 @@ class SingleProduct extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.modifyCart = this.modifyCart.bind(this)
     this.addToCart = this.addToCart.bind(this)
+    this.toggle_update_product = this.toggle_update_product.bind(this)
+    this.updateProductAction = this.updateProductAction.bind(this)
   }
 
   componentDidMount() {
@@ -40,11 +45,22 @@ class SingleProduct extends React.Component {
       showAddReview: !prevState.showAddReview
     }))
   }
-
+  toggle_update_product(event) {
+    event.preventDefault()
+    this.setState(prevState => ({
+      showUpdateProduct: !prevState.showUpdateProduct
+    }))
+  }
   handleSubmit(e) {
     e.preventDefault()
     this.props.addToCart(this.props.book.id, +this.state.quantity)
     // this.props.history.push('/')
+  }
+
+  updateProductAction(updatedProduct) {
+    console.log('UPDATEPRODUCT updated product', updatedProduct)
+    console.log('UPDATEPRODUCT id', this.props)
+    this.props.updateProductAction(updatedProduct, this.props.match.params.id)
   }
 
   handleChange(e) {
@@ -52,15 +68,21 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    let obj = this.props.book
+    console.log('object', this)
+    let obj = this.props.product
     let price = (obj.price / 100).toFixed(2)
+
     return (
       <div>
-        <img src={this.props.book.imageUrl} height={200} />
+        <img src={this.props.product.imageUrl} height={200} />
         <h3>{obj.title}</h3>
         <h5>by {obj.author}</h5>
         <h3>Genre: {obj.genre}</h3>
-        <button>Add to wish list</button>
+        {/* <button>Add to wish list</button> */}
+        <button onClick={this.toggle_update_product}>Update Product</button>
+        {this.state.showUpdateProduct ? (
+          <UpdateBookForm updateProductAction={this.updateProductAction} />
+        ) : null}
         <div>
           <form onSubmit={this.handleSubmit}>
             <h3>Quantity: {+this.state.quantity}</h3>
@@ -104,7 +126,7 @@ class SingleProduct extends React.Component {
 
         <hr />
         <a name="Reviews">Reviews</a>
-        {this.props.book.reviews}
+        {this.props.product.reviews}
         <button onClick={this.toggle_review}>Write a customer review</button>
 
         {this.state.addReviewToBook ? (
@@ -116,7 +138,7 @@ class SingleProduct extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  book: state.productReducer
+  product: state.productReducer
 })
 
 const mapDispatchToProps = dispatch => {
@@ -128,6 +150,11 @@ const mapDispatchToProps = dispatch => {
     },
     modifyCart: (id, changeAmount) => {
       return dispatch(modifyCart(id, changeAmount))
+    },
+    updateProductAction: (product, id) => {
+      console.log('we are n mapDispatchToProps product', product)
+      console.log('we are n mapDispatchToProps id', id)
+      return dispatch(updateProductThunk(product, id))
     }
   }
 }

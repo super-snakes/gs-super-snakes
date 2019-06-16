@@ -18,11 +18,11 @@ export const getSingleBookThunk = id => async dispatch => {
   dispatch(gotSingleBook(data))
 }
 
-export const updateProductActionThunk = (product, id) => {
+export const updateProductThunk = (product, id) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/products/${id}`, product)
-      dispatch(updateProductAction(data.product))
+      dispatch(updateProductAction(data))
     } catch (error) {
       console.log(error)
     }

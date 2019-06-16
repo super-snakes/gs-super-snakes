@@ -3,7 +3,6 @@ import {runInNewContext} from 'vm'
 
 const GOT_PRODUCTS = 'GOT_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
-
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 const defaultProducts = []
@@ -34,7 +33,7 @@ export const deleteProductThunk = id => {
   }
 }
 
-export const addProductThunk = () => {
+export const addProductThunk = product => {
   return async dispatch => {
     try {
       const {data} = await axios.post('/api/products', product)
@@ -54,6 +53,11 @@ export default function(state = defaultProducts, action) {
 
     case ADD_PRODUCT: {
       return [...state, action.product]
+    }
+    case DELETE_PRODUCT: {
+      console.log('ACTION: ', action)
+      console.log('STATE: ', state)
+      return state.filter(product => product.id != action.id)
     }
     default: {
       return state
