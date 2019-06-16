@@ -45,6 +45,7 @@ import IconButton from '@material-ui/core/IconButton'
 import InfoIcon from '@material-ui/icons/Info'
 import red from '@material-ui/core/colors/red'
 import AdminFormToggle from './adminFormToggle'
+// import {getUser} from '../store/user'
 
 const useStyles = {
   root: {
@@ -65,6 +66,7 @@ const useStyles = {
 class Products extends React.Component {
   componentDidMount() {
     this.props.getBooks()
+    // this.props.getUser()
   }
 
   render() {
@@ -72,8 +74,8 @@ class Products extends React.Component {
     const books = this.props.products
     return (
       <div id="allProductsWrapper">
-        {/* {this.props.user.isAdmin?( <AdminFormToggle />): (false)} */}
-        <AdminFormToggle />
+        {this.props.user.isAdmin ? <AdminFormToggle /> : false}
+        {/* <AdminFormToggle /> */}
         <GridList cellHeight={180}>
           {/* <GridListTile key="Subheader" cols={2} style={{height: 'auto'}} /> */}
           {books.map(book => {
@@ -90,7 +92,8 @@ const mapToDispatch = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  products: state.products
+  products: state.products,
+  user: state.user
 })
 
 export default connect(mapStateToProps, mapToDispatch)(Products)

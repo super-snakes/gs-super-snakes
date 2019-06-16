@@ -58,8 +58,6 @@ class SingleProduct extends React.Component {
   }
 
   updateProductAction(updatedProduct) {
-    console.log('UPDATEPRODUCT updated product', updatedProduct)
-    console.log('UPDATEPRODUCT id', this.props)
     this.props.updateProductAction(updatedProduct, this.props.match.params.id)
   }
 
