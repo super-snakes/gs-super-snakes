@@ -7,7 +7,7 @@ import {me} from './store'
 import Products from './components/Products'
 import SingleProduct from './components/singleproduct'
 import Checkout from './components/Checkout'
-import {submitCart, getCart} from './store/cart'
+import {submitCart, getCartFromLocalStorage} from './store/cart'
 import {get} from 'http'
 /**
  * COMPONENT
@@ -15,17 +15,8 @@ import {get} from 'http'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    if (!this.props.user.id) this.props.getCartFromLocalStorage()
   }
-
-  // componentWillUnmount() {
-  //   this.props.submitCart(
-  //     this.props.cart,
-  //     'pending',
-  //     this.props.user.email,
-  //     null,
-  //     this.props.user.id
-  //   )
-  // }
 
   render() {
     const {isLoggedIn} = this.props
@@ -66,6 +57,9 @@ const mapDispatch = dispatch => {
     },
     submitCart: (cart, status, email, address = null, id) => {
       dispatch(submitCart(cart, status, email, address, id))
+    },
+    getCartFromLocalStorage() {
+      dispatch(getCartFromLocalStorage())
     }
   }
 }
