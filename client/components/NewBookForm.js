@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {addProductThunk} from '../store/products'
 
-class NewBookForm extends Component {
+class NewBookForm extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -18,21 +18,38 @@ class NewBookForm extends Component {
       salePercentageOff: 0,
       price: 0
     }
-    this.handleSumbit = this.handleSubmit.bind(this)
+
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   async handleSubmit(event) {
     event.preventDefault()
+    console.log('inside handleSubmit')
+    console.log(event)
+    // console.log('line 27  in form ', this)
     this.props.addProductAction(this.state)
+    this.setState = {
+      title: '',
+      author: '',
+      imageUrl: '',
+      description: '',
+      tags: '',
+      quantity: '',
+      genre: '',
+      featuredItem: false,
+      salePercentageOff: 0,
+      price: 0
+    }
   }
   handleChange(event) {
+    console.log('changed', this)
     this.setState({
       [event.target.name]: event.target.value
     })
   }
   render() {
-    console.log('we are here', this)
+    // console.log('we are here form', this)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -132,8 +149,9 @@ class NewBookForm extends Component {
     )
   }
 }
-const mapDispatchToProps = dispatch => ({
-  addProductAction: newProduct => dispatch(addProductThunk(newProduct))
-})
+// const mapDispatchToProps = dispatch => ({
+//   addProductAction: newProduct => dispatch(addProductThunk(newProduct))
+// })
 
-export default connect(null, mapDispatchToProps)(NewBookForm)
+// export default connect(null, mapDispatchToProps)(NewBookForm)
+export default NewBookForm

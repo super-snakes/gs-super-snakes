@@ -4,6 +4,7 @@ import NewBookForm from './NewBookForm'
 import Fab from '@material-ui/core/Fab'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
+import {addProductThunk} from '../store/products'
 
 const useStyles = {
   button: {
@@ -21,8 +22,12 @@ class AdminFormToggle extends Component {
       showAddProductForm: false
     }
     this.toggle = this.toggle.bind(this)
+    this.addProductAction = this.addProductAction.bind(this)
   }
-
+  addProductAction(newProduct) {
+    console.log('RUS')
+    this.props.addProductAction(newProduct)
+  }
   toggle(event) {
     event.preventDefault()
     this.setState(prevState => ({
@@ -31,6 +36,7 @@ class AdminFormToggle extends Component {
   }
 
   render() {
+    console.log('here admin form toggle', this)
     const classes = useStyles
     return (
       <div>
@@ -51,4 +57,7 @@ class AdminFormToggle extends Component {
   }
 }
 
-export default AdminFormToggle
+const mapDispatchToProps = dispatch => ({
+  addProductAction: newProduct => dispatch(addProductThunk(newProduct))
+})
+export default connect(null, mapDispatchToProps)(AdminFormToggle)
