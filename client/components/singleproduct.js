@@ -77,10 +77,16 @@ class SingleProduct extends React.Component {
         <h5>by {obj.author}</h5>
         <h3>Genre: {obj.genre}</h3>
         {/* <button>Add to wish list</button> */}
-        <button onClick={this.toggle_update_product}>Update Product</button>
+        {this.props.user.isAdmin ? (
+          <button onClick={this.toggle_update_product}>Update Product</button>
+        ) : (
+          false
+        )}
+
         {this.state.showUpdateProduct ? (
           <UpdateBookForm updateProductAction={this.updateProductAction} />
         ) : null}
+
         <div>
           <form onSubmit={this.handleSubmit}>
             <h3>Quantity: {+this.state.quantity}</h3>
@@ -136,7 +142,8 @@ class SingleProduct extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  product: state.productReducer
+  product: state.productReducer,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => {
@@ -150,8 +157,6 @@ const mapDispatchToProps = dispatch => {
       return dispatch(modifyCart(id, changeAmount))
     },
     updateProductAction: (product, id) => {
-      console.log('we are n mapDispatchToProps product', product)
-      console.log('we are n mapDispatchToProps id', id)
       return dispatch(updateProductThunk(product, id))
     }
   }
