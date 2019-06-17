@@ -96,11 +96,13 @@ class SingleProduct extends React.Component {
             ) : (
               <h3>Price: ${price}</h3>
             )}
-            {/* {this.props.user.isAdmin ? ( */}
-            <button onClick={this.toggle_update_product}>Update Product</button>
-            {/* ) : (
+            {this.props.user.isAdmin ? (
+              <button onClick={this.toggle_update_product}>
+                Update Product
+              </button>
+            ) : (
               false
-            )} */}
+            )}
 
             {this.state.showUpdateProduct ? (
               <UpdateBookForm updateProductAction={this.updateProductAction} />
