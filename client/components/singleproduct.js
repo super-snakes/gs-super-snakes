@@ -53,8 +53,7 @@ class SingleProduct extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault()
-    this.props.addToCart(this.props.book.id, +this.state.quantity)
-    // this.props.history.push('/')
+    this.props.addToCart(this.props.product.id, +this.state.quantity)
   }
 
   updateProductAction(updatedProduct) {
@@ -115,7 +114,7 @@ class SingleProduct extends React.Component {
                 name="quantity"
                 min="1"
                 max="100"
-                placeholder="1"
+                placeholder="0"
                 onChange={this.handleChange}
               />
               <button type="submit">Add to Cart</button>
