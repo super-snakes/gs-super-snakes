@@ -191,6 +191,20 @@ const people = [
     paymentType: 'paypal',
     isAdmin: false,
     wishList: [1]
+  },
+  {
+    name: 'Alyona Rodin',
+    email: 'alyona.rodin@gmail.com',
+    password: '369',
+    street: '3135 Broadway',
+    apt: '1RF',
+    city: 'New York',
+    state: 'NY',
+    zipCode: '11220',
+    phoneNumber: '7185095356',
+    paymentType: 'paypal',
+    isAdmin: true,
+    wishList: [1]
   }
 ]
 

@@ -1,19 +1,26 @@
 import React, {Component} from 'react'
-import {addToCart} from '../store/cart'
+import {addToCart, modifyCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {getSingleBookThunk} from '../store/singleproductReducer'
 import {Link} from 'react-router-dom'
+import UpdateBookForm from '../components/updateBookForm'
+import {updateProductThunk} from '../store/singleproductReducer'
 
 class SingleProduct extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       showAddReview: false,
-      quantity: ''
+      showUpdateProduct: false,
+      quantity: '0'
     }
     this.toggle_review = this.toggle_review.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.modifyCart = this.modifyCart.bind(this)
+    this.addToCart = this.addToCart.bind(this)
+    this.toggle_update_product = this.toggle_update_product.bind(this)
+    this.updateProductAction = this.updateProductAction.bind(this)
   }
 
   componentDidMount() {
@@ -24,17 +31,34 @@ class SingleProduct extends React.Component {
     this.props.addReviewToBook(newReview)
   }
 
+  addToCart(id, quantity) {
+    this.props.addToCart(id, quantity)
+  }
+
+  modifyCart(id, changeAmount) {
+    this.props.modifyCart(id, changeAmount)
+  }
+
   toggle_review(event) {
     event.preventDefault()
     this.setState(prevState => ({
       showAddReview: !prevState.showAddReview
     }))
   }
-
+  toggle_update_product(event) {
+    event.preventDefault()
+    this.setState(prevState => ({
+      showUpdateProduct: !prevState.showUpdateProduct
+    }))
+  }
   handleSubmit(e) {
     e.preventDefault()
     this.props.addToCart(this.props.book.id, +this.state.quantity)
-    this.props.history.push('/')
+    // this.props.history.push('/')
+  }
+
+  updateProductAction(updatedProduct) {
+    this.props.updateProductAction(updatedProduct, this.props.match.params.id)
   }
 
   handleChange(e) {
@@ -42,8 +66,10 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    let obj = this.props.book
+    console.log('object', this)
+    let obj = this.props.product
     let price = (obj.price / 100).toFixed(2)
+
     return (
       <div>
         <div style={{display: 'flex'}}>
@@ -65,8 +91,7 @@ class SingleProduct extends React.Component {
                 Take it home for only ${(
                   price *
                   (100 - obj.salePercentageOff) /
-                  100
-                ).toFixed(2)}!
+                  100).toFixed(2)}!
               </h3>
             ) : (
               <h3>Price: ${price}</h3>
@@ -83,6 +108,7 @@ class SingleProduct extends React.Component {
                 onChange={this.handleChange}
               />
               <button type="submit">Add to Cart</button>
+
               <br />
               <button>Add to wish list</button>
             </form>
@@ -110,7 +136,8 @@ class SingleProduct extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  book: state.productReducer
+  product: state.productReducer,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => {
@@ -119,6 +146,12 @@ const mapDispatchToProps = dispatch => {
     addReview: newReview => dispatch(addReviewToBookThunk(newReview)),
     addToCart: (productId, quantity) => {
       return dispatch(addToCart(productId, quantity))
+    },
+    modifyCart: (id, changeAmount) => {
+      return dispatch(modifyCart(id, changeAmount))
+    },
+    updateProductAction: (product, id) => {
+      return dispatch(updateProductThunk(product, id))
     }
   }
 }

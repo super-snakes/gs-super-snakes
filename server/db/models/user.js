@@ -17,7 +17,7 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    // allowNull: false,
+    allowNull: false,
     get() {
       return () => this.getDataValue('password')
     }
@@ -95,7 +95,6 @@ const setSaltAndPassword = user => {
     user.password = User.encryptPassword(user.password(), user.salt())
   }
 }
-
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)

@@ -2,6 +2,9 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {addToCart} from '../store/cart'
+import DeleteIcon from '@material-ui/icons/Delete'
+import {deleteProductThunk} from '../store/products'
+import IconButton from '@material-ui/core/IconButton'
 
 const style = {
   margin: '10px',
@@ -28,6 +31,8 @@ const ProductCard = props => {
 
   const price = (props.book.price / 100).toFixed(2)
   const salePercentageOff = props.book.salePercentageOff / 100
+
+  console.log('i am in the productcard', props)
   return (
     <div className="productCard">
       <Link to={`/products/${id}`}>
@@ -53,20 +58,30 @@ const ProductCard = props => {
       >
         Add to my Cart
       </button>
+      {props.user.isAdmin ? (
+        <IconButton
+          aria-label="Delete"
+          onClick={() => props.deleteProductAction(id)}
+        >
+          <DeleteIcon />
+        </IconButton>
+      ) : (
+        false
+      )}
     </div>
   )
 }
 
+const mapStateToProps = state => ({
+  user: state.user
+  cart: state.cart
+})
+
 const mapDispatch = dispatch => {
   return {
-    addToCart: (itemId, quantity) => dispatch(addToCart(itemId, quantity))
+    addToCart: (itemId, quantity) => dispatch(addToCart(itemId, quantity)),
+    deleteProductAction: id => dispatch(deleteProductThunk(id))
   }
 }
 
-const mapState = state => {
-  return {
-    cart: state.cart
-  }
-}
-
-export default connect(mapState, mapDispatch)(ProductCard)
+export default connect(mapStateToProps, mapDispatch)(ProductCard)
