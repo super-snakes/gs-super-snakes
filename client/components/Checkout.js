@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CheckoutForm from './CheckoutForm'
 import OrderSummary from './OrderSummary'
+import StripeCheckoutComponent from './StripeCheckoutComponent'
 
 const Checkout = props => {
   const cart = props.cart
@@ -9,7 +10,8 @@ const Checkout = props => {
   return (
     <div id="checkoutWrapper">
       <OrderSummary />
-      <CheckoutForm />
+      <StripeCheckoutComponent />
+      {/* <CheckoutForm /> */}
     </div>
   )
 }
