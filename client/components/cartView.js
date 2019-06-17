@@ -3,6 +3,7 @@ import CartItem from './cartItem'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {addToCart, getCart} from '../store/cart'
+import GridList from '@material-ui/core/GridList'
 
 const CartView = props => {
   let bookArray = []
@@ -15,15 +16,17 @@ const CartView = props => {
         <h4>To Checkout</h4>
       </Link>
       <div>
-        {bookArray.map(el => {
-          return (
-            <CartItem
-              key={el.book.id}
-              product={el.book}
-              quantity={el.quantity}
-            />
-          )
-        })}
+        <GridList cellHeight={180} style={{padding: '25px'}}>
+          {bookArray.map(el => {
+            return (
+              <CartItem
+                key={el.book.id}
+                product={el.book}
+                quantity={el.quantity}
+              />
+            )
+          })}
+        </GridList>
       </div>
     </div>
   )
