@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {logout} from '../store'
 import {Redirect} from 'react-router-dom'
 import {submitCart, getCart} from '../store/cart'
+import OrderHistory from './OrderHistory'
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class UserHome extends React.Component {
         <div className="flex">
           <img src={user.imageUrl} className="rounded mr1" />
           <h1>Welcome {user.email}!</h1>
+          <OrderHistory />
         </div>
         <div>
           <button
