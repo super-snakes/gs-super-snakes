@@ -36,13 +36,22 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/add', async (req, res, next) => {
   try {
-    const name = req.body.name
-    const email = req.body.email
-    const password = req.body.password
-    const address = req.body.address
-    const phoneNumber = req.body.phoneNumber
-    const paymentType = req.body.paymentType
-    const paymentInformation = req.body.paymentInformation
+    const {
+      name,
+      email,
+      password,
+      address,
+      phoneNumber,
+      paymentType,
+      paymentInformation
+    } = req.body
+    // const name = req.body.name
+    // const email = req.body.email
+    // const password = req.body.password
+    // const address = req.body.address
+    // const phoneNumber = req.body.phoneNumber
+    // const paymentType = req.body.paymentType
+    // const paymentInformation = req.body.paymentInformation
     const user = await User.create({
       name,
       email,
@@ -61,13 +70,32 @@ router.post('/add', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   const id = +req.params.id
   try {
-    const [numOfAffected, affected] = await User.update(req.body, {
-      where: {
-        id: id
-      },
-      returning: true,
-      plain: true
-    })
+    const {
+      name,
+      email,
+      password,
+      address,
+      phoneNumber,
+      paymentType,
+      paymentInformation
+    } = req.body
+    const [numOfAffected, affected] = await User.update(
+      name,
+      email,
+      password,
+      address,
+      phoneNumber,
+      paymentType,
+      paymentInformation,
+      // req.body
+      {
+        where: {
+          id: id
+        },
+        returning: true,
+        plain: true
+      }
+    )
     res.json(affected)
   } catch (err) {
     next(err)
