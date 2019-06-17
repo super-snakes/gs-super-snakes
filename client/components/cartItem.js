@@ -27,7 +27,7 @@ const CartItem = props => {
           {props.quantity}
           <Add onClick={() => props.modifyCart(id, 1)} />
         </p>
-        <img src={imageUrl} />
+        <img src={imageUrl} style={{width: '250px', height: '350px'}} />
         <DeleteIcon onClick={() => props.modifyCart(id, -props.quantity)} />
       </Paper>
     </div>
