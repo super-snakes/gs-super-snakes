@@ -22,6 +22,7 @@ export const updateProductThunk = (product, id) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/products/${id}`, product)
+      console.log('thunk data', data)
       dispatch(updateProductAction(data))
     } catch (error) {
       console.log(error)
@@ -34,7 +35,9 @@ export const productReducer = (state = [], action) => {
     case GOT_SINGLE_BOOK:
       return action.book
     case UPDATE_PRODUCT:
-      return Object.assign({}, {products: state.products}, action.book)
+      console.log('STATE', state)
+      console.log('ACTION', action)
+      return Object.assign({}, {products: state}, action.product.products)
     default:
       return state
   }
