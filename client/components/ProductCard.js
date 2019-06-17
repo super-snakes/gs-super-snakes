@@ -51,7 +51,9 @@ const ProductCard = props => {
       </Link>
       <button
         type="button"
-        onClick={() => props.addToCart(id, 1)}
+        onClick={() => {
+          props.addToCart(id, 1)
+        }}
         style={{margin: '10px'}}
       >
         Add to my Cart
@@ -72,6 +74,7 @@ const ProductCard = props => {
 
 const mapStateToProps = state => ({
   user: state.user
+  cart: state.cart
 })
 
 const mapDispatch = dispatch => {

@@ -1,42 +1,7 @@
-// import React from 'react'
-// import {connect} from 'react-redux'
-// import ProductCard from './ProductCard'
-// import {getProducts} from '../store/products'
-// import {Link, Switch, Route} from 'react-router-dom'
-
-// class Products extends React.Component {
-//   componentDidMount() {
-//     this.props.getBooks()
-//   }
-
-//   render() {
-//     const books = this.props.products
-//     return (
-//       <div id="allProductsWrapper">
-//         {books.map(book => {
-//           return <ProductCard key={book.id} book={book} />
-//         })}
-//       </div>
-//     )
-//   }
-// }
-
-// const mapToDispatch = dispatch => ({
-//   getBooks: () => dispatch(getProducts())
-// })
-
-// const mapStateToProps = state => ({
-//   products: state.products
-// })
-
-// export default connect(mapStateToProps, mapToDispatch)(Products)
-
 import React from 'react'
 import {connect} from 'react-redux'
 import ProductCard from './ProductCard'
 import {getProducts} from '../store/products'
-import {Link, Switch, Route} from 'react-router-dom'
-import {makeStyles} from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
@@ -45,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton'
 import InfoIcon from '@material-ui/icons/Info'
 import red from '@material-ui/core/colors/red'
 import AdminFormToggle from './adminFormToggle'
-// import {getUser} from '../store/user'
 
 const useStyles = {
   root: {
@@ -66,17 +30,14 @@ const useStyles = {
 class Products extends React.Component {
   componentDidMount() {
     this.props.getBooks()
-    // this.props.getUser()
   }
 
   render() {
-    console.log('we are in products', this.state)
     const books = this.props.products
     return (
       <div id="allProductsWrapper">
         {this.props.user.isAdmin ? <AdminFormToggle /> : false}
-        {/* <AdminFormToggle /> */}
-        <GridList cellHeight={180}>
+        <GridList cellHeight={180} style={{padding: '25px'}}>
           {/* <GridListTile key="Subheader" cols={2} style={{height: 'auto'}} /> */}
           {books.map(book => {
             return <ProductCard key={book.id} book={book} />

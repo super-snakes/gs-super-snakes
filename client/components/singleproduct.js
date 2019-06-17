@@ -72,66 +72,60 @@ class SingleProduct extends React.Component {
 
     return (
       <div>
-        <img src={this.props.product.imageUrl} height={200} />
-        <h3>{obj.title}</h3>
-        <h5>by {obj.author}</h5>
-        <h3>Genre: {obj.genre}</h3>
-        {/* <button>Add to wish list</button> */}
-        {this.props.user.isAdmin ? (
-          <button onClick={this.toggle_update_product}>Update Product</button>
-        ) : (
-          false
-        )}
+        <div style={{display: 'flex'}}>
+          <img
+            className="imageFixed"
+            src={this.props.book.imageUrl}
+            height={200}
+            style={{padding: '25px'}}
+          />
+          <div style={{display: 'flex-direction: column'}}>
+            <h3>{obj.title}</h3>
+            <h5> by {obj.author} </h5>
+            {obj.salePercentageOff > 0 ? (
+              <h3>
+                Original Price: ${price}
+                <br />
+                Today's Sale: {obj.salePercentageOff}% off
+                <br />
+                Take it home for only ${(
+                  price *
+                  (100 - obj.salePercentageOff) /
+                  100).toFixed(2)}!
+              </h3>
+            ) : (
+              <h3>Price: ${price}</h3>
+            )}
 
-        {this.state.showUpdateProduct ? (
-          <UpdateBookForm updateProductAction={this.updateProductAction} />
-        ) : null}
+            <div />
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="number"
+                name="quantity"
+                min="1"
+                max="100"
+                placeholder="1"
+                onChange={this.handleChange}
+              />
+              <button type="submit">Add to Cart</button>
 
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <h3>Quantity: {+this.state.quantity}</h3>
-
-            <input
-              type="number"
-              name="quantity"
-              min="1"
-              max="100"
-              placeholder="1"
-              onChange={this.handleChange}
-            />
-            <button
-              type="submit"
-              onClick={() => this.state.modifyCart(obj.id, this.state.quantity)}
-            >
-              Add to Cart
-            </button>
-          </form>
-          {obj.salePercentageOff > 0 ? (
-            <h3>
-              Original Price: ${price}
               <br />
-              Today's Sale: {obj.salePercentageOff}% off
-              <br />
-              Take it home for only ${(
-                price *
-                (100 - obj.salePercentageOff) /
-                100
-              ).toFixed(2)}!
-            </h3>
-          ) : (
-            <h3>Price: ${price}</h3>
-          )}
+              <button>Add to wish list</button>
+            </form>
+          </div>
         </div>
-        <a href="#Reviews">Reviews</a>
         <div>
+          <h3>Genre: {obj.genre}</h3>
           <h4>Book Overview</h4>
           <h6>{obj.description}</h6>
         </div>
 
         <hr />
-        <a name="Reviews">Reviews</a>
-        {this.props.product.reviews}
-        <button onClick={this.toggle_review}>Write a customer review</button>
+        <a href="#Reviews" style={{padding: '8px'}}>
+          Reviews
+        </a>
+        {this.props.book.reviews}
+        <button onClick={this.toggle_review}>Add Review</button>
 
         {this.state.addReviewToBook ? (
           <addReviewToBook addReviewToBook={this.addReviewToBook} />
