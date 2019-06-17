@@ -105,20 +105,3 @@ Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
-
-{
-  /* <span>
-<Link to="/cart">
-  <IconButton
-    aria-label="Cart"
-    style={{
-      display: 'inline'
-    }}
-  >
-    <StyledBadge badgeContent={cartSize} color="primary">
-      <ShoppingCartIcon />
-    </StyledBadge>
-  </IconButton>
-</Link>
-</span> */
-}
