@@ -9,7 +9,7 @@ const Checkout = props => {
   return (
     <div id="checkoutWrapper">
       <OrderSummary />
-      <CheckoutForm />
+      <CheckoutForm history={props.history} location={props.location} />
     </div>
   )
 }

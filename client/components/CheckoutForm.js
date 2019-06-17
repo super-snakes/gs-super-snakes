@@ -59,10 +59,10 @@ class CheckoutForm extends React.Component {
       address,
       id
     )
+    this.props.history.push(`${this.props.location.pathname}/thank-you`)
   }
 
   render() {
-    // const creditCard = /^((4\d{3})|(5[1-5]\d{2})|(6011))-?\d{4}-?\d{4}-?\d{4}|3[4,7]\d{13}$/
     return (
       <div id="formWrapper">
         <form onSubmit={this.handleSubmit}>
