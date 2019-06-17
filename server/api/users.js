@@ -1,16 +1,27 @@
 const router = require('express').Router()
-const {User, Product, Order} = require('../db/models')
+const {User, Product, Reviews, Order} = require('../db/models')
 
 module.exports = router
+
+// function isSelfOrAdmin(req, res, next) {
+//   if (req.params.id == req.user.id || req.user.isAdmin) return next()
+//   res.redirect('/')
+// }
+
+// function isAdmin(req, res, next) {
+//   if (req.user.isAdmin) return next()
+//   res.redirect('/')
+// }
 
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll()
-    res.json(users)
+    res.status(200).json(users)
   } catch (err) {
     next(err)
   }
 })
+
 router.get('/:id', async (req, res, next) => {
   const id = +req.params.id
   try {
@@ -24,7 +35,6 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/add', async (req, res, next) => {
-  console.log(req.body)
   try {
     const name = req.body.name
     const email = req.body.email

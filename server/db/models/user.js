@@ -9,6 +9,7 @@ const User = db.define('user', {
   },
   email: {
     type: Sequelize.STRING,
+    unique: true,
     allowNull: false,
     validate: {
       isEmail: true
@@ -16,19 +17,37 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    get() {
+      return () => this.getDataValue('password')
+    }
   },
-  address: {
+  street: {
+    type: Sequelize.STRING
+  },
+  apt: {
+    type: Sequelize.STRING
+  },
+  city: {
+    type: Sequelize.STRING
+  },
+  state: {
+    type: Sequelize.STRING
+  },
+  zipCode: {
     type: Sequelize.STRING
   },
   phoneNumber: {
     type: Sequelize.STRING
   },
-  paymentType: {
+  salt: {
     type: Sequelize.STRING,
-    validate: {
-      isIn: [['paypal', 'stripe', 'credit card']]
+    get() {
+      return () => this.getDataValue('salt')
     }
+  },
+  googleId: {
+    type: Sequelize.STRING
   },
   paymentInformation: {
     type: Sequelize.BIGINT,
@@ -39,9 +58,6 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
-  },
-  wishList: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER)
   }
 })
 
@@ -73,18 +89,15 @@ User.encryptPassword = function(plainText, salt) {
     .digest('hex')
 }
 
-/**
- * hooks
- */
-// const setSaltAndPassword = user => {
-//   if (user.changed('password')) {
-//     user.salt = User.generateSalt()
-//     user.password = User.encryptPassword(user.password(), user.salt())
-//   }
-// }
+const setSaltAndPassword = user => {
+  if (user.changed('password')) {
+    user.salt = User.generateSalt()
+    user.password = User.encryptPassword(user.password(), user.salt())
+  }
+}
 
-// User.beforeCreate(setSaltAndPassword)
-// User.beforeUpdate(setSaltAndPassword)
-// User.beforeBulkCreate(users => {
-//   users.forEach(setSaltAndPassword)
-// })
+User.beforeCreate(setSaltAndPassword)
+User.beforeUpdate(setSaltAndPassword)
+User.beforeBulkCreate(users => {
+  users.forEach(setSaltAndPassword)
+})

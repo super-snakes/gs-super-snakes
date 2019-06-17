@@ -18,15 +18,26 @@ describe('User model', () => {
           name: 'cody',
           email: 'cody@puppybook.com',
           password: 'bones',
-          address: '5 Hanover square',
+          street: '3135 Broadway',
+          apt: '369',
+          city: 'New York',
+          state: 'NY',
+          zipCode: '10027',
           phoneNumber: '347-999-1111'
         })
       })
 
+      // it('includes street, apt, city, state, zipCode', () => {
+      //   expect(cody.street).to.equal('3135 Broadway'),
+      //     expect(cody.apt).to.equal('369'),
+      //     expect(cody.city).to.equal('New York'),
+      //     expect(cody.state).to.equal('NY'),
+      //     expect(cody.zipCode).to.equal('10027')
+      // })
+
       it('includes name, email, password', () => {
         expect(cody.name).to.equal('cody')
         expect(cody.email).to.equal('cody@puppybook.com')
-        expect(cody.password).to.equal('bones')
       })
 
       it('sets default values on "isAdmin"', () => {
@@ -40,9 +51,12 @@ describe('User model', () => {
             name: 'cody',
             email: 'cody@puppybook.com',
             password: 'bones',
-            address: '5 Hanover square',
-            phoneNumber: '347-999-1111',
-            paymentType: 'cash'
+            street: '3135 Broadway',
+            apt: '369',
+            city: 'New York',
+            state: 'NY',
+            zipCode: '10027',
+            phoneNumber: '347-999-1111'
           })
         } catch (err) {
           error = err
@@ -50,11 +64,11 @@ describe('User model', () => {
         expect(error).to.be.an.instanceOf(Error)
       })
 
-      xit('returns true if the password is correct', () => {
+      it('returns true if the password is correct', () => {
         expect(cody.correctPassword('bones')).to.be.equal(true)
       })
 
-      xit('returns false if the password is incorrect', () => {
+      it('returns false if the password is incorrect', () => {
         expect(cody.correctPassword('bonez')).to.be.equal(false)
       })
     }) // end describe('correctPassword')

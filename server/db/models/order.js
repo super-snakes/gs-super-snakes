@@ -12,6 +12,12 @@ const Order = db.define('order', {
     validate: {
       isIn: [['pending', 'shipped', 'completed', 'returned']]
     }
+  },
+  email: {
+    type: Sequelize.STRING
+  },
+  address: {
+    type: Sequelize.STRING
   }
 })
 

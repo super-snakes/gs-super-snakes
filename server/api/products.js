@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, reviews} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 module.exports = router
@@ -21,7 +21,6 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
-
 router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id)
@@ -31,14 +30,35 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
+  const id = req.params.id
   try {
-    await Product.update(req.body, {
+    Product.destroy({
       where: {
-        id: req.params.id
+        id: id
       }
     })
     res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  const id = req.params.id
+  try {
+    const [numberRows, arrayProducts] = await Product.update(req.body, {
+      where: {
+        id: id
+      },
+      returning: true,
+      plain: true
+    })
+    if (arrayProducts.length === 0) {
+      res.status(500).send()
+    } else {
+      res.status(200).json({products: arrayProducts})
+    }
   } catch (err) {
     next(err)
   }
@@ -72,7 +92,6 @@ router.get('/author/:writer', async (req, res, next) => {
 
 router.get('/title/:name', async (req, res, next) => {
   try {
-    console.log('here', req.params.name)
     const products = await Product.findAll({
       where: {
         title: {

@@ -2,33 +2,55 @@ const router = require('express').Router()
 const User = require('../db/models/user')
 module.exports = router
 
+const userNotFound = next => {
+  const err = new Error('User not found')
+  err.status = 404
+  next(err)
+}
+
 router.post('/login', async (req, res, next) => {
   try {
-    const user = await User.findOne({where: {email: req.body.email}})
-    if (!user) {
-      console.log('No such user found:', req.body.email)
-      res.status(401).send('Incorrect username and/or password')
-    } else if (!user.correctPassword(req.body.password)) {
-      console.log('Wrong password for user:', req.body.email)
-      res.status(401).send('Wrong username and/or password')
-    } else {
-      req.login(user, err => (err ? next(err) : res.json(user)))
-    }
+    User.findOne({
+      where: {
+        email: req.body.email
+      }
+    }).then(user => {
+      if (user.correctPassword(req.body.password)) {
+        req.session.userId = user.id
+        res.json(user)
+      } else {
+        const err = new Error('Incorrect email or password')
+        err.status = 401
+        next(err)
+      }
+    })
   } catch (err) {
     next(err)
   }
 })
 
 router.post('/signup', async (req, res, next) => {
+  const {email, password} = req.body
   try {
-    const user = await User.create(req.body)
-    req.login(user, err => (err ? next(err) : res.json(user)))
-  } catch (err) {
-    if (err.name === 'SequelizeUniqueConstraintError') {
-      res.status(401).send('User already exists')
-    } else {
-      next(err)
+    let user = await User.findOne({
+      where: {
+        email: email
+      }
+    })
+    if (user) {
+      return res.status(400).json({msg: 'User already exists'})
     }
+    user = await User.create({
+      email,
+      password
+    })
+    if (!req.session.userId) {
+      req.session.userId = user.id
+    }
+    res.json(user)
+  } catch (err) {
+    console.error(err)
+    return res.status(500).send('Server error')
   }
 })
 
@@ -38,8 +60,14 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+router.get('/me', (req, res, next) => {
+  if (!req.user) {
+    userNotFound(next)
+  } else {
+    User.findByPk(req.user.id)
+      .then(user => (user ? res.json(user) : userNotFound(next)))
+      .catch(next)
+  }
 })
 
 router.use('/google', require('./google'))
