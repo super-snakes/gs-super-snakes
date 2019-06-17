@@ -13,6 +13,7 @@ const Reviews = require('./reviews')
 
 Order.belongsToMany(Product, {through: OrderProducts, as: 'orderId'})
 Product.belongsToMany(Order, {through: OrderProducts, as: 'productId'})
+
 User.hasMany(Order)
 Order.belongsTo(User)
 

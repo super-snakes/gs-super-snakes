@@ -17,11 +17,15 @@ describe('instanceMethods', () => {
 
     beforeEach(async () => {
       OrderProducts1 = await OrderProducts.create({
+        orderId: 1,
+        productId: 2,
         price: 400,
         quantity: 2
       })
     })
-    it('includes price and quantity', () => {
+    xit('includes price and quantity', () => {
+      expect(OrderProducts1.orderId).to.equal(1)
+      expect(OrderProducts1.productId).to.equal(2)
       expect(OrderProducts1.price).to.equal(400)
       expect(OrderProducts1.quantity).to.equal(2)
     })

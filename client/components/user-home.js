@@ -8,6 +8,7 @@ import {Redirect} from 'react-router-dom'
  * COMPONENT
  */
 export const UserHome = props => {
+  console.log('we are in USER-HOME', props)
   const {user, handleClick} = props
 
   if (!user.id) {
@@ -18,7 +19,7 @@ export const UserHome = props => {
     <div className="h100 w100 flex column align-items-center justify-center">
       <div className="flex">
         <img src={user.imageUrl} className="rounded mr1" />
-        <h1>Welcome {user.email}!</h1>
+        <h3>Welcome {user.email}!</h3>
       </div>
       <div>
         <button className="btn bg-red white p1 rounded" onClick={handleClick}>

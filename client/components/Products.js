@@ -70,7 +70,7 @@ class Products extends React.Component {
   }
 
   render() {
-    console.log('we are in products', this)
+    console.log('we are in products', this.state)
     const books = this.props.products
     return (
       <div id="allProductsWrapper">
