@@ -72,9 +72,6 @@ const Navbar = (props, {handleClick, isLoggedIn}) => {
             >
               Home
             </Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
           </div>
         ) : (
           <div>

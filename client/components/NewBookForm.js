@@ -25,9 +25,6 @@ class NewBookForm extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault()
-    console.log('inside handleSubmit')
-    console.log(event)
-    // console.log('line 27  in form ', this)
     this.props.addProductAction(this.state)
     this.setState = {
       title: '',
@@ -43,13 +40,11 @@ class NewBookForm extends React.Component {
     }
   }
   handleChange(event) {
-    console.log('changed', this)
     this.setState({
       [event.target.name]: event.target.value
     })
   }
   render() {
-    // console.log('we are here form', this)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>

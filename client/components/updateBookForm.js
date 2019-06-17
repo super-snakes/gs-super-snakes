@@ -43,7 +43,6 @@ class UpdateBookForm extends React.Component {
     })
   }
   render() {
-    console.log('WE-----ARE-----HERE-----:', this)
     return (
       <div>
         <h3>UPDATE PRODUCT</h3>
