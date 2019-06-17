@@ -32,7 +32,6 @@ const ProductCard = props => {
   const price = (props.book.price / 100).toFixed(2)
   const salePercentageOff = props.book.salePercentageOff / 100
 
-  console.log('i am in the productcard', props)
   return (
     <div className="productCard">
       <Link to={`/products/${id}`}>
@@ -73,7 +72,7 @@ const ProductCard = props => {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
   cart: state.cart
 })
 

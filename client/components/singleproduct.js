@@ -66,7 +66,6 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log('object', this)
     let obj = this.props.product
     let price = (obj.price / 100).toFixed(2)
 
@@ -75,7 +74,7 @@ class SingleProduct extends React.Component {
         <div style={{display: 'flex'}}>
           <img
             className="imageFixed"
-            src={this.props.book.imageUrl}
+            src={this.props.product.imageUrl}
             height={200}
             style={{padding: '25px'}}
           />
@@ -91,11 +90,23 @@ class SingleProduct extends React.Component {
                 Take it home for only ${(
                   price *
                   (100 - obj.salePercentageOff) /
-                  100).toFixed(2)}!
+                  100
+                ).toFixed(2)}!
               </h3>
             ) : (
               <h3>Price: ${price}</h3>
             )}
+            {this.props.user.isAdmin ? (
+              <button onClick={this.toggle_update_product}>
+                Update Product
+              </button>
+            ) : (
+              false
+            )}
+
+            {this.state.showUpdateProduct ? (
+              <UpdateBookForm updateProductAction={this.updateProductAction} />
+            ) : null}
 
             <div />
             <form onSubmit={this.handleSubmit}>
@@ -124,7 +135,7 @@ class SingleProduct extends React.Component {
         <a href="#Reviews" style={{padding: '8px'}}>
           Reviews
         </a>
-        {this.props.book.reviews}
+        {this.props.product.reviews}
         <button onClick={this.toggle_review}>Add Review</button>
 
         {this.state.addReviewToBook ? (
