@@ -12,7 +12,7 @@ class SingleProduct extends React.Component {
     this.state = {
       showAddReview: false,
       showUpdateProduct: false,
-      quantity: '0'
+      quantity: '1'
     }
     this.toggle_review = this.toggle_review.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -114,7 +114,7 @@ class SingleProduct extends React.Component {
                 name="quantity"
                 min="1"
                 max="100"
-                placeholder="0"
+                value={this.state.quantity}
                 onChange={this.handleChange}
               />
               <button type="submit">Add to Cart</button>
