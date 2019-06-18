@@ -45,12 +45,14 @@ class SingleProduct extends React.Component {
       showAddReview: !prevState.showAddReview
     }))
   }
+
   toggle_update_product(event) {
     event.preventDefault()
     this.setState(prevState => ({
       showUpdateProduct: !prevState.showUpdateProduct
     }))
   }
+
   handleSubmit(e) {
     e.preventDefault()
     this.props.addToCart(this.props.product.id, +this.state.quantity)
@@ -69,19 +71,14 @@ class SingleProduct extends React.Component {
     let price = (obj.price / 100).toFixed(2)
 
     return (
-      <div>
-        <div style={{display: 'flex'}}>
-          <img
-            className="imageFixed"
-            src={this.props.product.imageUrl}
-            height={200}
-            style={{padding: '25px'}}
-          />
-          <div style={{display: 'flex-direction: column'}}>
+      <div id="single-product-wrapper">
+        <div id="single-product-content-wrapper">
+          <img id="single-product-image" src={this.props.product.imageUrl} />
+          <div id="single-product-content">
             <h3>{obj.title}</h3>
-            <h5> by {obj.author} </h5>
+            <h4> by {obj.author} </h4>
             {obj.salePercentageOff > 0 ? (
-              <h3>
+              <h5 id="single-produce-sale">
                 Original Price: ${price}
                 <br />
                 Today's Sale: {obj.salePercentageOff}% off
@@ -91,9 +88,9 @@ class SingleProduct extends React.Component {
                   (100 - obj.salePercentageOff) /
                   100
                 ).toFixed(2)}!
-              </h3>
+              </h5>
             ) : (
-              <h3>Price: ${price}</h3>
+              <h5>Price: ${price}</h5>
             )}
             {this.props.user.isAdmin ? (
               <button onClick={this.toggle_update_product}>
@@ -124,15 +121,14 @@ class SingleProduct extends React.Component {
             </form>
           </div>
         </div>
-        <div>
+        <div id="single-product-more-info">
           <h3>Genre: {obj.genre}</h3>
-          <h4>Book Overview</h4>
-          <h6>{obj.description}</h6>
+          <h3>Book Overview:</h3>
+          <p>{obj.description}</p>
         </div>
-
         <hr />
-        <a href="#Reviews" style={{padding: '8px'}}>
-          Reviews
+        <a href="#Reviews">
+          <h3 id="reviews">Reviews:</h3>
         </a>
         {this.props.product.reviews}
         <button onClick={this.toggle_review}>Add Review</button>
