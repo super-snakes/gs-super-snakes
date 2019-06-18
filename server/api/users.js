@@ -3,17 +3,29 @@ const {User, Product, Reviews, Order} = require('../db/models')
 
 module.exports = router
 
+// import axios from 'axios'
+
+// export const me = async () => {
+//   try {
+//     const res = await axios.get('/auth/me')
+//     return res
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
+
 // function isSelfOrAdmin(req, res, next) {
-//   if (req.params.id == req.user.id || req.user.isAdmin) return next()
-//   res.redirect('/')
+//   me().isAdmin ? next() : res.send('You do not have access to this page.')
 // }
 
 // function isAdmin(req, res, next) {
-//   if (req.user.isAdmin) return next()
-//   res.redirect('/')
+//   me().isAdmin
+//     ? next()
+//     : res.send('You do not have administrative access to view page.')
 // }
 
 router.get('/', async (req, res, next) => {
+  isAdmin()
   try {
     const users = await User.findAll()
     res.status(200).json(users)
