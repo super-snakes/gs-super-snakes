@@ -1,19 +1,8 @@
 const router = require('express').Router()
 const {User, Product, Reviews, Order} = require('../db/models')
+const {isAdminCheck, isAdminOrUser} = require('./isAdmin')
 
-module.exports = router
-
-// function isSelfOrAdmin(req, res, next) {
-//   if (req.params.id == req.user.id || req.user.isAdmin) return next()
-//   res.redirect('/')
-// }
-
-// function isAdmin(req, res, next) {
-//   if (req.user.isAdmin) return next()
-//   res.redirect('/')
-// }
-
-router.get('/', async (req, res, next) => {
+router.get('/', isAdminCheck, async (req, res, next) => {
   try {
     const users = await User.findAll()
     res.status(200).json(users)
@@ -22,7 +11,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAdminOrUser, async (req, res, next) => {
   const id = +req.params.id
   try {
     const user = await User.findByPk(id, {
@@ -34,23 +23,33 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/add', async (req, res, next) => {
+router.post('/add', isAdminCheck, async (req, res, next) => {
   try {
-    const name = req.body.name
-    const email = req.body.email
-    const password = req.body.password
-    const address = req.body.address
-    const phoneNumber = req.body.phoneNumber
-    const paymentType = req.body.paymentType
-    const paymentInformation = req.body.paymentInformation
+    const {
+      name,
+      email,
+      password,
+      street,
+      apt,
+      city,
+      state,
+      zipCode,
+      phoneNumber,
+      paymentInformation,
+      isAdmin
+    } = req.body
     const user = await User.create({
       name,
       email,
       password,
-      address,
+      street,
+      apt,
+      city,
+      state,
+      zipCode,
       phoneNumber,
-      paymentType,
-      paymentInformation
+      paymentInformation,
+      isAdmin
     })
     res.json(user)
   } catch (err) {
@@ -58,23 +57,52 @@ router.post('/add', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdminOrUser, async (req, res, next) => {
   const id = +req.params.id
   try {
-    const [numOfAffected, affected] = await User.update(req.body, {
-      where: {
-        id: id
+    const {
+      name,
+      email,
+      password,
+      street,
+      apt,
+      city,
+      state,
+      zipCode,
+      phoneNumber,
+      paymentInformation,
+      isAdmin
+    } = req.body
+    const [numOfAffected, affected] = await User.update(
+      {
+        name,
+        email,
+        password,
+        street,
+        apt,
+        city,
+        state,
+        zipCode,
+        phoneNumber,
+        paymentInformation,
+        isAdmin
       },
-      returning: true,
-      plain: true
-    })
+
+      {
+        where: {
+          id: id
+        },
+        returning: true,
+        plain: true
+      }
+    )
     res.json(affected)
   } catch (err) {
     next(err)
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdminOrUser, async (req, res, next) => {
   const id = +req.params.id
   try {
     await User.destroy({
@@ -87,3 +115,5 @@ router.delete('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+module.exports = router

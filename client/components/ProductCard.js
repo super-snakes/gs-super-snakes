@@ -6,26 +6,6 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import {deleteProductThunk} from '../store/products'
 import IconButton from '@material-ui/core/IconButton'
 
-const style = {
-  margin: '10px',
-  width: '250px',
-  height: '10px',
-  display: 'inline',
-  color: 'black',
-  font: 'Arial'
-}
-
-const style2 = {
-  margin: '30px',
-  width: '250px',
-  height: '10px',
-  color: 'blue',
-  font: 'Arial'
-}
-
-// TO DO
-// Handle the add to cart --> redux thing
-
 const ProductCard = props => {
   const {id, title, author, rating, imageUrl} = props.book
 
@@ -33,40 +13,48 @@ const ProductCard = props => {
   const salePercentageOff = props.book.salePercentageOff / 100
 
   return (
-    <div className="productCard">
-      <Link to={`/products/${id}`}>
-        <h2 style={style}>{title}</h2>
-        <h3 style={style2}>by {author}</h3>
-        <img src={imageUrl} style={{width: '250px', height: '350px'}} />
-        <p className="rating">{rating}</p>
-        {salePercentageOff > 0 ? (
-          <div className="salePrice">
-            <p style={{textDecorationLine: 'line-through'}}>${price} </p>
-            ${(price - price * salePercentageOff).toFixed(2)}
-          </div>
-        ) : (
-          <div className="price">${price}</div>
-        )}
-      </Link>
-      <button
-        type="button"
-        onClick={() => {
-          props.addToCart(id, 1)
-        }}
-        style={{margin: '10px'}}
-      >
-        Add to my Cart
-      </button>
-      {props.user.isAdmin ? (
-        <IconButton
-          aria-label="Delete"
-          onClick={() => props.deleteProductAction(id)}
+    <div className="product-card">
+      <div className="product-card-image-wrapper">
+        <img src={imageUrl} />
+      </div>
+      <div className="product-card-content-wrapper">
+        <Link className="product-card-content" to={`/products/${id}`}>
+          <h2>{title}</h2>
+          <h3>by {author}</h3>
+          <p className="rating">{rating}</p>
+          {salePercentageOff > 0 ? (
+            <div className="sale-price-wrapper">
+              <p className="sale-price">${price} </p>
+              <p className="price">
+                ${(price - price * salePercentageOff).toFixed(2)}{' '}
+              </p>
+            </div>
+          ) : (
+            <div className="price-wrapper">
+              <p className="price">${price}</p>
+            </div>
+          )}
+        </Link>
+        <button
+          type="button"
+          onClick={() => {
+            props.addToCart(id, 1)
+          }}
+          style={{margin: '10px'}}
         >
-          <DeleteIcon />
-        </IconButton>
-      ) : (
-        false
-      )}
+          Add to my Cart
+        </button>
+        {props.user.isAdmin ? (
+          <IconButton
+            aria-label="Delete"
+            onClick={() => props.deleteProductAction(id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        ) : (
+          false
+        )}
+      </div>
     </div>
   )
 }

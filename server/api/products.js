@@ -1,7 +1,8 @@
 const router = require('express').Router()
-const {Product, reviews} = require('../db/models')
+const {Product, Reviews} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const {isAdminCheck} = require('./isAdmin')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -13,14 +14,38 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdminCheck, async (req, res, next) => {
   try {
-    const book = await Product.create(req.body)
-    res.status(201).json(book)
+    const {
+      title,
+      author,
+      imageUrl,
+      description,
+      tags,
+      quantity,
+      genre,
+      featureItem,
+      salePercentageOff,
+      price
+    } = req.body
+    const book = await Product.create({
+      title,
+      author,
+      imageUrl,
+      description,
+      tags,
+      quantity,
+      genre,
+      featureItem,
+      salePercentageOff,
+      price
+    })
+    res.json(book)
   } catch (err) {
     next(err)
   }
 })
+
 router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id)
@@ -30,7 +55,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdminCheck, async (req, res, next) => {
   const id = req.params.id
   try {
     Product.destroy({
@@ -44,16 +69,42 @@ router.delete('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdminCheck, async (req, res, next) => {
   const id = req.params.id
   try {
-    const [numberRows, arrayProducts] = await Product.update(req.body, {
-      where: {
-        id: id
+    const {
+      title,
+      author,
+      imageUrl,
+      description,
+      tags,
+      quantity,
+      genre,
+      featureItem,
+      salePercentageOff,
+      price
+    } = req.body
+    const [numberRows, arrayProducts] = await Product.update(
+      {
+        title,
+        author,
+        imageUrl,
+        description,
+        tags,
+        quantity,
+        genre,
+        featureItem,
+        salePercentageOff,
+        price
       },
-      returning: true,
-      plain: true
-    })
+      {
+        where: {
+          id: id
+        },
+        returning: true,
+        plain: true
+      }
+    )
     if (arrayProducts.length === 0) {
       res.status(500).send()
     } else {

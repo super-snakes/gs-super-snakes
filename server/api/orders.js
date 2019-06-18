@@ -2,9 +2,10 @@ const router = require('express').Router()
 const {Order, Product, OrderProducts, User} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const {isAdminCheck, isAdminOrUser} = require('./isAdmin')
 module.exports = router
 
-router.get('/cart/:id', async (req, res, next) => {
+router.get('/cart/:id', isAdminOrUser, async (req, res, next) => {
   try {
     const openOrder = await Order.findAll({
       where: {
@@ -29,7 +30,7 @@ router.get('/cart/:id', async (req, res, next) => {
   }
 })
 
-router.get('/cart/orderHistory/:id', async (req, res, next) => {
+router.get('/cart/orderHistory/:id', isAdminOrUser, async (req, res, next) => {
   try {
     const orderHistory = await Order.findAll({
       where: {
@@ -69,7 +70,7 @@ router.post('/cart', async (req, res, next) => {
   try {
     const cart = req.body.cart
     const status = req.body.status
-    const userId = req.body.userId
+    const userId = req.body.userId || null
     const address = req.body.address
     const addressString = address ? Object.values(address).join(' ') : null
     const email = req.body.email
@@ -81,18 +82,21 @@ router.post('/cart', async (req, res, next) => {
     })
 
     for (let bookId in cart) {
+      const price =
+        cart[bookId].book.price -
+        cart[bookId].book.price * (cart[bookId].book.salePercentageOff / 100)
       await OrderProducts.create({
         orderId: newOrder.id,
         productId: cart[bookId].book.id,
         quantity: cart[bookId].quantity,
-        price: cart[bookId].book.price
+        price
       })
     }
 
     if (userId !== null && address !== null) {
       User.update(address, {
         where: {
-          id: userId
+          id: +userId
         }
       })
     }
@@ -103,7 +107,7 @@ router.post('/cart', async (req, res, next) => {
   }
 })
 
-router.put('/cart/:id', async (req, res, next) => {
+router.put('/cart/:id', isAdminOrUser, async (req, res, next) => {
   try {
     await Order.update(req.body, {
       where: {
@@ -116,7 +120,7 @@ router.put('/cart/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdminOrUser, async (req, res, next) => {
   try {
     await Order.destroy({
       where: {

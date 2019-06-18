@@ -7,6 +7,7 @@ import {me} from './store'
 import Products from './components/Products'
 import SingleProduct from './components/singleproduct'
 import Checkout from './components/Checkout'
+import OrderSubmitted from './components/OrderSubmitted'
 import {submitCart, getCartFromLocalStorage} from './store/cart'
 import {get} from 'http'
 /**
@@ -28,6 +29,11 @@ class Routes extends Component {
         <Route exact path="/products" component={Products} />
         <Route exact path="/cart" component={CartView} />
         <Route exact path="/cart/checkout" component={Checkout} />
+        <Route
+          exact
+          path="/cart/checkout/thank-you"
+          component={OrderSubmitted}
+        />
         <Route path="/products/:id(\d+)" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
