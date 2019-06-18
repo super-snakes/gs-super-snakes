@@ -30,7 +30,6 @@ class UserHome extends React.Component {
         <div className="flex">
           <img src={user.imageUrl} className="rounded mr1" />
           <h1>Welcome {user.email}!</h1>
-          <OrderHistory />
         </div>
         <div>
           <button
@@ -42,6 +41,7 @@ class UserHome extends React.Component {
             Logout
           </button>
         </div>
+        <OrderHistory />
       </div>
     )
   }
