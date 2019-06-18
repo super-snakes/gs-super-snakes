@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {Order, Product, OrderProducts, User} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const {isAdmin} = require('./isAdmin')
 module.exports = router
 
 router.get('/cart/:id', async (req, res, next) => {
@@ -29,7 +30,7 @@ router.get('/cart/:id', async (req, res, next) => {
   }
 })
 
-router.get('/cart/orderHistory/:id', async (req, res, next) => {
+router.get('/cart/orderHistory/:id', isAdmin, async (req, res, next) => {
   try {
     const orderHistory = await Order.findAll({
       where: {
@@ -103,7 +104,7 @@ router.post('/cart', async (req, res, next) => {
   }
 })
 
-router.put('/cart/:id', async (req, res, next) => {
+router.put('/cart/:id', isAdmin, async (req, res, next) => {
   try {
     await Order.update(req.body, {
       where: {
@@ -116,7 +117,7 @@ router.put('/cart/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     await Order.destroy({
       where: {
