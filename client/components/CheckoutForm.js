@@ -25,14 +25,14 @@ class CheckoutForm extends React.Component {
   componentDidMount() {
     let user = this.props.user
     this.setState({
-      name: user.name || 'Name',
-      card: user.paymentInformation || 'Card number',
-      street: user.street || 'Street',
+      name: user.name || '',
+      card: user.paymentInformation || '',
+      street: user.street || '',
       apt: user.apt || '',
-      city: user.city || 'City',
-      state: user.state || 'State',
-      zipCode: user.zipCode || 'Zip Code',
-      email: user.email || 'Email'
+      city: user.city || '',
+      state: user.state || '',
+      zipCode: user.zipCode || '',
+      email: user.email || ''
     })
   }
 
@@ -65,13 +65,14 @@ class CheckoutForm extends React.Component {
   render() {
     return (
       <div id="formWrapper">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} id="checkoutForm">
           <label htmlFor="name">Name:</label>
           <input
             onChange={this.handleChange}
             name="name"
             type="text"
             value={this.state.name}
+            placeholder="Enter"
             required
           />
 
@@ -81,6 +82,7 @@ class CheckoutForm extends React.Component {
             name="card"
             type="text"
             value={this.state.card}
+            placeholder="Enter name"
             required
           />
 
@@ -90,6 +92,7 @@ class CheckoutForm extends React.Component {
             name="email"
             type="email"
             value={this.state.email}
+            placeholder="Enter email"
             required
           />
 
@@ -99,6 +102,7 @@ class CheckoutForm extends React.Component {
             name="street"
             type="text"
             value={this.state.street}
+            placeholder="Enter street"
           />
 
           <label htmlFor="apt">Apt/Unit:</label>
@@ -107,6 +111,7 @@ class CheckoutForm extends React.Component {
             name="apt"
             type="text"
             value={this.state.apt}
+            placeholder="Enter apartment/unit number"
           />
 
           <label htmlFor="city">City:</label>
@@ -115,6 +120,7 @@ class CheckoutForm extends React.Component {
             name="city"
             type="text"
             value={this.state.city}
+            placeholder="Enter city"
           />
 
           <label htmlFor="state">State:</label>
@@ -123,6 +129,7 @@ class CheckoutForm extends React.Component {
             name="state"
             type="text"
             value={this.state.state}
+            placeholder="Enter state"
           />
 
           <label htmlFor="zipCode">Zip Code:</label>
@@ -131,6 +138,7 @@ class CheckoutForm extends React.Component {
             name="zipCode"
             type="text"
             value={this.state.zipCode}
+            placeholder="Enter zipcode"
           />
 
           <button type="submit">Submit</button>

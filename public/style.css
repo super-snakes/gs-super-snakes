@@ -71,7 +71,6 @@ form div {
   align-self: center;
   border: 3px solid #73ad21;
 }
-
 nav {
   max-height: 7vh;
 }
@@ -151,10 +150,10 @@ nav {
 .price {
   color: black;
 }
-
 .sale-price {
   color: red;
   text-decoration: line-through;
+
   margin-right: 2%;
 }
 .product-card:hover {
@@ -230,4 +229,47 @@ nav {
   border-top: 1px solid lightslategrey;
   border-bottom: 1px solid lightslategrey;
   margin-top: 2%;
+}
+/* CHECK OUT SUMMARY */
+#orderSummaryWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+}
+#orderItemSummary {
+  flex: 1 0 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.checkoutOrderItem {
+  flex: 0 1 15%;
+  margin: 10px;
+  margin-bottom: 25px;
+}
+#formWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+}
+#checkoutForm {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+}
+#checkoutForm > input {
+  flex: 1 0 100%;
+  margin-bottom: 25px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid black;
+}
+#checkoutForm > button {
+  border: none;
+  text-decoration: none;
+  color: white;
+  background-color: #4caf50;
+  font-size: 16px;
+  padding: 14px 40px;
 }

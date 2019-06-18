@@ -10,14 +10,18 @@ const OrderSummary = props => {
     return acc + price * el.quantity
   }, 0)
   return (
-    <div>
+    <div id="orderSummaryWrapper">
       <h2>Order Summary:</h2>
-      <GridList cellHeight={180} style={{padding: '25px'}}>
+      <GridList
+        cellHeight={180}
+        style={{padding: '25px'}}
+        id="orderItemSummary"
+      >
         {books.map(el => {
           const price =
             el.book.price - el.book.price * (el.book.salePercentageOff / 100)
           return (
-            <div key={el.book.id}>
+            <div key={el.book.id} className="checkoutOrderItem">
               <h4>{el.book.title}</h4>
               <p>{el.book.author}</p>
               <p>Price per unit: ${(price / 100).toFixed(2)}</p>
