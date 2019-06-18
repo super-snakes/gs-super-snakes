@@ -5,20 +5,8 @@ import {getProducts} from '../store/products'
 import GridList from '@material-ui/core/GridList'
 import AdminFormToggle from './adminFormToggle'
 
-const useStyles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden'
-  },
-  gridList: {
-    width: 500,
-    height: 450
-  },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)'
-  }
+{
+  /* <GridList cellHeight={180} style={{padding: '25px'}}></GridList> */
 }
 
 class Products extends React.Component {
@@ -29,14 +17,11 @@ class Products extends React.Component {
   render() {
     const books = this.props.products
     return (
-      <div id="allProductsWrapper">
+      <div id="all-products-wrapper">
         {this.props.user.isAdmin ? <AdminFormToggle /> : false}
-        <GridList cellHeight={180} style={{padding: '25px'}}>
-          {/* <GridListTile key="Subheader" cols={2} style={{height: 'auto'}} /> */}
-          {books.map(book => {
-            return <ProductCard key={book.id} book={book} />
-          })}
-        </GridList>
+        {books.map(book => {
+          return <ProductCard key={book.id} book={book} />
+        })}
       </div>
     )
   }
