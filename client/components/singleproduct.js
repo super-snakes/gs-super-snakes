@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {addToCart, modifyCart} from '../store/cart'
 import {connect} from 'react-redux'
+import {addToCart, modifyCart} from '../store/cart'
 import {getSingleBookThunk} from '../store/singleproductReducer'
 import {Link} from 'react-router-dom'
 import UpdateBookForm from '../components/updateBookForm'

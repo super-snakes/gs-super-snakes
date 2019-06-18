@@ -23,7 +23,7 @@ const Product = db.define('product', {
       'https://www.google.com/imgres?imgurl=https%3A%2F%2Fdictionary.cambridge.org%2Ffr%2Fimages%2Fthumb%2Fbook_noun_001_01679.jpg%3Fversion%3D4.0.82&imgrefurl=https%3A%2F%2Fdictionary.cambridge.org%2Ffr%2Fdictionnaire%2Fanglais%2Fbook&docid=9mUzIWA1HEO4MM&tbnid=35Su7QK-1hGk1M%3A&vet=10ahUKEwi909yT4-HiAhVP11kKHZ2oDoYQMwivASgoMCg..i&w=200&h=200&bih=686&biw=802&q=book&ved=0ahUKEwi909yT4-HiAhVP11kKHZ2oDoYQMwivASgoMCg&iact=mrc&uact=8'
   },
   description: {
-    allowNull: true,
+    allowNull: false,
     type: Sequelize.TEXT
   },
 
@@ -66,7 +66,7 @@ const Product = db.define('product', {
   },
   price: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
     validate: {
       min: 0
     }

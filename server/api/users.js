@@ -1,8 +1,6 @@
 const router = require('express').Router()
 const {User, Product, Reviews, Order} = require('../db/models')
 
-module.exports = router
-
 // function isSelfOrAdmin(req, res, next) {
 //   if (req.params.id == req.user.id || req.user.isAdmin) return next()
 //   res.redirect('/')
@@ -40,26 +38,27 @@ router.post('/add', async (req, res, next) => {
       name,
       email,
       password,
-      address,
+      street,
+      apt,
+      city,
+      state,
+      zipCode,
       phoneNumber,
-      paymentType,
-      paymentInformation
+      paymentInformation,
+      isAdmin
     } = req.body
-    // const name = req.body.name
-    // const email = req.body.email
-    // const password = req.body.password
-    // const address = req.body.address
-    // const phoneNumber = req.body.phoneNumber
-    // const paymentType = req.body.paymentType
-    // const paymentInformation = req.body.paymentInformation
     const user = await User.create({
       name,
       email,
       password,
-      address,
+      street,
+      apt,
+      city,
+      state,
+      zipCode,
       phoneNumber,
-      paymentType,
-      paymentInformation
+      paymentInformation,
+      isAdmin
     })
     res.json(user)
   } catch (err) {
@@ -74,20 +73,30 @@ router.put('/:id', async (req, res, next) => {
       name,
       email,
       password,
-      address,
+      street,
+      apt,
+      city,
+      state,
+      zipCode,
       phoneNumber,
-      paymentType,
-      paymentInformation
+      paymentInformation,
+      isAdmin
     } = req.body
     const [numOfAffected, affected] = await User.update(
-      name,
-      email,
-      password,
-      address,
-      phoneNumber,
-      paymentType,
-      paymentInformation,
-      // req.body
+      {
+        name,
+        email,
+        password,
+        street,
+        apt,
+        city,
+        state,
+        zipCode,
+        phoneNumber,
+        paymentInformation,
+        isAdmin
+      },
+
       {
         where: {
           id: id
@@ -115,3 +124,5 @@ router.delete('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+module.exports = router
