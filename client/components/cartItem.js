@@ -14,14 +14,18 @@ const useStyles = makeStyles(theme => ({
 
 const CartItem = props => {
   const classes = useStyles()
-  const {id, title, imageUrl, author, price} = props.product
+  const {id, title, imageUrl, author, price, salePercentageOff} = props.product
+
+  const finalPrice = price / 100 * (100 - salePercentageOff) / 100
 
   return (
     <div>
       <Paper className={classes.root}>
         <h4>{title}</h4>
         <h5>{author}</h5>
-        <p>${(price / 100).toFixed(2)}</p>
+
+        <p>${finalPrice.toFixed(2)}</p>
+
         <p>
           Quantity: <Remove onClick={() => props.modifyCart(id, -1)} />
           {props.quantity}
