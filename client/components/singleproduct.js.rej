@@ -1,0 +1,7 @@
+diff a/client/components/singleproduct.js b/client/components/singleproduct.js	(rejected hunks)
+@@ -76,4 +76 @@ class SingleProduct extends React.Component {
+-          <img
+-            id="single-product-image"
+-            src={this.props.product.imageUrl}
+-          />
++          <img id="single-product-image" src={this.props.product.imageUrl} />

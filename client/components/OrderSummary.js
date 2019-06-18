@@ -5,20 +5,24 @@ import GridList from '@material-ui/core/GridList'
 const OrderSummary = props => {
   const books = Object.values(props.cart)
   const total = books.reduce((acc, el) => {
-    return acc + el.book.price * el.quantity
+    const price =
+      el.book.price - el.book.price * (el.book.salePercentageOff / 100)
+    return acc + price * el.quantity
   }, 0)
   return (
     <div>
       <h2>Order Summary:</h2>
       <GridList cellHeight={180} style={{padding: '25px'}}>
         {books.map(el => {
+          const price =
+            el.book.price - el.book.price * (el.book.salePercentageOff / 100)
           return (
             <div key={el.book.id}>
               <h4>{el.book.title}</h4>
               <p>{el.book.author}</p>
-              <p>Price per unit: ${(el.book.price / 100).toFixed(2)}</p>
+              <p>Price per unit: ${(price / 100).toFixed(2)}</p>
               <p>Quantity: {el.quantity}</p>
-              <p>Price: ${(el.book.price * el.quantity / 100).toFixed(2)}</p>
+              <p>Price: ${(price * el.quantity / 100).toFixed(2)}</p>
             </div>
           )
         })}
