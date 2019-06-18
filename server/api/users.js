@@ -11,7 +11,7 @@ const {isAdmin} = require('./isAdmin')
 //   res.redirect('/')
 // }
 
-router.get('/', isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll()
     res.status(200).json(users)
@@ -20,7 +20,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/:id', isAdmin, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const id = +req.params.id
   try {
     const user = await User.findByPk(id, {
@@ -32,7 +32,7 @@ router.get('/:id', isAdmin, async (req, res, next) => {
   }
 })
 
-router.post('/add', isAdmin, async (req, res, next) => {
+router.post('/add', async (req, res, next) => {
   try {
     const {
       name,
@@ -66,7 +66,7 @@ router.post('/add', isAdmin, async (req, res, next) => {
   }
 })
 
-router.put('/:id', isAdmin, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   const id = +req.params.id
   try {
     const {
@@ -111,7 +111,7 @@ router.put('/:id', isAdmin, async (req, res, next) => {
   }
 })
 
-router.delete('/:id', isAdmin, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   const id = +req.params.id
   try {
     await User.destroy({

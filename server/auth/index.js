@@ -61,10 +61,10 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res, next) => {
-  if (!req.user) {
+  if (!req.session.userId) {
     userNotFound(next)
   } else {
-    User.findByPk(req.user.id)
+    User.findByPk(req.session.userId)
       .then(user => (user ? res.json(user) : userNotFound(next)))
       .catch(next)
   }

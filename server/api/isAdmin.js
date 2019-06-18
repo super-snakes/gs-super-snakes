@@ -1,4 +1,5 @@
 const isAdmin = (req, res, next) => {
+  console.log(req.session)
   if (!req.user || !req.user.isAdmin) {
     const err = new Error(`Admin permission is required!`)
     err.status = 401
