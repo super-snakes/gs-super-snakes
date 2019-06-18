@@ -5,10 +5,6 @@ import {getProducts} from '../store/products'
 import GridList from '@material-ui/core/GridList'
 import AdminFormToggle from './adminFormToggle'
 
-{
-  /* <GridList cellHeight={180} style={{padding: '25px'}}></GridList> */
-}
-
 class Products extends React.Component {
   componentDidMount() {
     this.props.getBooks()

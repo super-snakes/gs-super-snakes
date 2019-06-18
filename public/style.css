@@ -180,3 +180,36 @@ nav {
 .product-card:hover {
   transform: scale(1.05);
 }
+
+/* ORDER HISTORY COMPONENT */
+
+#order-history-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+
+.order-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 5px;
+  box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.23);
+  background-color: white;
+  margin: 2%;
+  padding: 2%;
+}
+
+.order-product-wrapper {
+  display: flex;
+  padding: 2%;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: solid 1px black;
+}
+
+.order-product-wrapper:first-of-type {
+  border-top: solid 1px black;
+}

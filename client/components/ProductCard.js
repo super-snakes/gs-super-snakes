@@ -6,27 +6,6 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import {deleteProductThunk} from '../store/products'
 import IconButton from '@material-ui/core/IconButton'
 
-//h2
-const style = {
-  margin: '10px',
-  width: '250px',
-  height: '10px',
-  display: 'inline',
-  color: 'black',
-  font: 'Arial'
-}
-//h3
-const style2 = {
-  margin: '30px',
-  width: '250px',
-  height: '10px',
-  color: 'blue',
-  font: 'Arial'
-}
-
-// TO DO
-// Handle the add to cart --> redux thing
-
 const ProductCard = props => {
   const {id, title, author, rating, imageUrl} = props.book
 
