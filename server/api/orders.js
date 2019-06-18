@@ -93,7 +93,6 @@ router.post('/cart', async (req, res, next) => {
       })
     }
 
-    console.log(userId)
     if (userId !== null && address !== null) {
       User.update(address, {
         where: {
