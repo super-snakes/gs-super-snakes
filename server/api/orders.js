@@ -70,7 +70,7 @@ router.post('/cart', async (req, res, next) => {
   try {
     const cart = req.body.cart
     const status = req.body.status
-    const userId = req.body.userId
+    const userId = req.body.userId || null
     const address = req.body.address
     const addressString = address ? Object.values(address).join(' ') : null
     const email = req.body.email
@@ -82,18 +82,22 @@ router.post('/cart', async (req, res, next) => {
     })
 
     for (let bookId in cart) {
+      const price =
+        cart[bookId].book.price -
+        cart[bookId].book.price * (cart[bookId].book.salePercentageOff / 100)
       await OrderProducts.create({
         orderId: newOrder.id,
         productId: cart[bookId].book.id,
         quantity: cart[bookId].quantity,
-        price: cart[bookId].book.price
+        price
       })
     }
 
+    console.log(userId)
     if (userId !== null && address !== null) {
       User.update(address, {
         where: {
-          id: userId
+          id: +userId
         }
       })
     }

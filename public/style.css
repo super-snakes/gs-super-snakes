@@ -22,12 +22,6 @@ form div {
   display: inline-block;
 }
 
-.imageFixed {
-  left: 25px;
-  border: 3px solid #73ad21;
-  padding: 10px;
-}
-
 /* NAVBAR */
 
 #nav-bar-wrapper {
@@ -212,4 +206,58 @@ nav {
 
 .order-product-wrapper:first-of-type {
   border-top: solid 1px black;
+}
+
+/* SINGLE PRODUCT PAGE */
+
+#single-product-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  justify-content: space-between;
+}
+
+#single-product-content-wrapper {
+  display: flex;
+}
+
+#reviews {
+  color: black;
+}
+
+#single-product-image {
+  border: 3px solid #73ad21;
+  box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.23);
+  height: 100%;
+  width: 25%;
+}
+
+#single-product-content {
+  margin-left: 2%;
+}
+
+#single-product-content h3 {
+  font-size: 30px;
+  font-family: 'Arvo', serif;
+  margin: 0;
+}
+
+#single-product-content h4 {
+  font-family: 'Arvo', serif;
+  font-size: 25px;
+  margin: 0;
+}
+
+#single-product-content h5 {
+  font-size: 20px;
+}
+
+#single-produce-sale {
+  color: red;
+}
+
+#single-product-more-info {
+  border-top: 1px solid lightslategrey;
+  border-bottom: 1px solid lightslategrey;
+  margin-top: 2%;
 }
