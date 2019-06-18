@@ -1,5 +1,6 @@
 const router = require('express').Router()
 module.exports = router
+const session = require('express-session')
 
 router.use('/users', require('./users'))
 router.use('/products', require('./products'))

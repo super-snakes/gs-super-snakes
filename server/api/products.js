@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Product, Reviews} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
-const {isAdmin} = require('./isAdmin')
+const {isAdminCheck} = require('./isAdmin')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', isAdmin, async (req, res, next) => {
+router.post('/', isAdminCheck, async (req, res, next) => {
   try {
     const {
       title,
@@ -55,7 +55,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', isAdmin, async (req, res, next) => {
+router.delete('/:id', isAdminCheck, async (req, res, next) => {
   const id = req.params.id
   try {
     Product.destroy({
@@ -69,7 +69,7 @@ router.delete('/:id', isAdmin, async (req, res, next) => {
   }
 })
 
-router.put('/:id', isAdmin, async (req, res, next) => {
+router.put('/:id', isAdminCheck, async (req, res, next) => {
   const id = req.params.id
   try {
     const {

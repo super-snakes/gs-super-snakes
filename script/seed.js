@@ -65,7 +65,8 @@ const library = [
     tags: 'f',
     quantity: 311,
     genre: 'horror',
-    price: 200
+    price: 200,
+    salePercentageOff: 30
   },
   {
     title: 'The Witches',
@@ -124,7 +125,8 @@ const library = [
     tags: 'f',
     quantity: 1410,
     genre: 'gothic',
-    price: 325
+    price: 325,
+    salePercentageOff: 75
   },
   {
     title: 'Beloved',
@@ -159,7 +161,8 @@ const library = [
     tags: 'f',
     quantity: 450,
     genre: 'modernism',
-    price: 1045
+    price: 1045,
+    salePercentageOff: 10
   }
 ]
 
