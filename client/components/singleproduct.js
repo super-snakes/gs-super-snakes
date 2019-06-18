@@ -115,9 +115,6 @@ class SingleProduct extends React.Component {
                 onChange={this.handleChange}
               />
               <button type="submit">Add to Cart</button>
-
-              <br />
-              <button>Add to wish list</button>
             </form>
           </div>
         </div>
