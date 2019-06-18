@@ -17,6 +17,7 @@ router.post('/login', async (req, res, next) => {
     }).then(user => {
       if (user.correctPassword(req.body.password)) {
         req.session.userId = user.id
+        req.session.isAdmin = user.isAdmin
         res.json(user)
       } else {
         const err = new Error('Incorrect email or password')

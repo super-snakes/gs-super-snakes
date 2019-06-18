@@ -1,10 +1,7 @@
 import React from 'react'
-
 import {connect} from 'react-redux'
-
 import {Navbar} from './components'
 import Routes from './routes'
-
 import {me} from '../client/store/user'
 
 class App extends React.Component {
