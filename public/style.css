@@ -43,6 +43,7 @@ form div {
   position: sticky;
   overflow-y: hidden;
   box-shadow: 2px 1px 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
 }
 .nav-link {
   color: white;
@@ -64,7 +65,6 @@ form div {
   color: white;
   margin: 0px;
 }
-
 #super-snake-logo {
   max-height: 10vh;
   margin-top: 20px;
@@ -93,7 +93,6 @@ nav {
 #all-products-wrapper {
   display: flex;
   flex-flow: row wrap;
-
   justify-content: space-evenly;
   align-items: flex-start;
   align-content: flex-start;
@@ -128,7 +127,6 @@ nav {
   overflow: hidden;
   border-radius: 5px 0 0 5px;
 }
-
 .product-card-image-wrapper img {
   height: 100%;
   min-width: 100%;
@@ -147,13 +145,13 @@ nav {
   justify-content: flex-start;
   align-items: flex-start;
 }
-
 .sale-price-wrapper {
   display: flex;
 }
 .price {
   color: black;
 }
+
 .sale-price {
   color: red;
   text-decoration: line-through;
@@ -209,7 +207,6 @@ nav {
   height: 100%;
   width: 25%;
 }
-
 #single-product-content {
   margin-left: 2%;
 }
@@ -232,6 +229,5 @@ nav {
 #single-product-more-info {
   border-top: 1px solid lightslategrey;
   border-bottom: 1px solid lightslategrey;
-
   margin-top: 2%;
 }
