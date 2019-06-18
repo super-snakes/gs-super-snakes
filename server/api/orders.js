@@ -30,7 +30,7 @@ router.get('/cart/:id', async (req, res, next) => {
   }
 })
 
-router.get('/cart/orderHistory/:id', async (req, res, next) => {
+router.get('/cart/orderHistory/:id', isAdmin, async (req, res, next) => {
   try {
     const orderHistory = await Order.findAll({
       where: {
