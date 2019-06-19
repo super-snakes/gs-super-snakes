@@ -99,7 +99,7 @@ export default function(state = defaultCart, action) {
     case MODIFY_QUANITY: {
       let newState = {...state}
       const id = action.id
-      if (newState[id].quantity > 1) {
+      if (newState[id].quantity >= 1) {
         newState[id].quantity = newState[id].quantity + action.changeAmount
         if (newState[id].quantity < 1) {
           delete newState[id]
